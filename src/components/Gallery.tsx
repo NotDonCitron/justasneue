@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart, Play } from 'lucide-react';
 import LazyImage from './LazyImage';
 import VideoPlayer from './VideoPlayer';
 import instagramData from '../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json';
@@ -15,11 +15,48 @@ interface GalleryImage {
   caption?: string;
   isInstagram?: boolean;
   mediaType?: 'image' | 'video';
+  thumbnail?: string;
 }
 
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
+
+  // Local videos - ADD YOUR MP4 FILES HERE
+  const localVideos: GalleryImage[] = [
+    {
+      id: 'video-1',
+      src: '/videos/performance1.mp4', // Replace with your actual video path
+      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      alt: 'Live Performance Highlight',
+      category: 'performance',
+      date: '2025-01-15',
+      location: 'MS Connexion Complex',
+      mediaType: 'video',
+      caption: 'Intense techno set at MS Connexion - crowd going wild!'
+    },
+    {
+      id: 'video-2',
+      src: '/videos/studio-session.mp4', // Replace with your actual video path
+      thumbnail: '/Images/WhatsApp Image 2025-05-10 at 15.09.09 copy.jpeg',
+      alt: 'Studio Session Behind the Scenes',
+      category: 'studio',
+      date: '2025-01-10',
+      mediaType: 'video',
+      caption: 'Working on new tracks in the studio'
+    },
+    {
+      id: 'video-3',
+      src: '/videos/event-highlight.mp4', // Replace with your actual video path
+      thumbnail: '/Images/WhatsApp Image 2025-05-10 at 15.10.27 copy.jpeg',
+      alt: 'Event Highlight Reel',
+      category: 'event',
+      date: '2025-01-05',
+      location: 'Das Zimmer Mannheim',
+      mediaType: 'video',
+      caption: 'Best moments from recent events'
+    }
+  ];
 
   // Lokale Bilder
   const localImages: GalleryImage[] = [
@@ -78,7 +115,8 @@ const Gallery: React.FC = () => {
       mediaType: post.mediaType as 'image' | 'video'
     }));
 
-  const allImages = [...localImages, ...instagramImages];
+  // Combine all media (videos first for prominence)
+  const allImages = [...localVideos, ...localImages, ...instagramImages];
 
   const filteredImages = filter === 'all' 
     ? allImages 
@@ -163,16 +201,17 @@ const Gallery: React.FC = () => {
               {image.mediaType === 'video' ? (
                 <div className="relative w-full h-full">
                   <LazyImage
-                    src={image.src}
+                    src={image.thumbnail || image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-black/50 rounded-full p-3">
-                      <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M8 5v10l8-5-8-5z"/>
-                      </svg>
+                    <div className="bg-black/70 rounded-full p-4 transform transition-all duration-300 group-hover:scale-110">
+                      <Play size={24} className="text-white ml-1" />
                     </div>
+                  </div>
+                  <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+                    VIDEO
                   </div>
                 </div>
               ) : (
@@ -222,6 +261,7 @@ const Gallery: React.FC = () => {
             {selectedImageData.mediaType === 'video' ? (
               <VideoPlayer
                 src={selectedImageData.src}
+                poster={selectedImageData.thumbnail}
                 title={selectedImageData.alt}
                 className="max-w-full max-h-full"
               />
@@ -260,23 +300,17 @@ const Gallery: React.FC = () => {
               <ChevronRight size={32} />
             </button>
             
-            {/* Image info */}
-            {selectedImageData.mediaType !== 'video' && (
+            {/* Video info overlay */}
+            {selectedImageData.mediaType === 'video' && (
               <div className="absolute bottom-4 left-4 right-4 text-white bg-black/70 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm uppercase tracking-wider text-red-400 bg-red-600/20 px-2 py-1 rounded">
-                    {selectedImageData.category}
+                    {selectedImageData.category} • VIDEO
                   </span>
-                  {selectedImageData.isInstagram && selectedImageData.likes && (
-                    <div className="flex items-center">
-                      <Heart size={16} className="mr-1 text-red-500" />
-                      <span>{selectedImageData.likes} Likes</span>
-                    </div>
-                  )}
                 </div>
                 <h3 className="text-lg font-bold mb-2">{selectedImageData.alt}</h3>
                 {selectedImageData.caption && (
-                  <p className="text-sm text-gray-300 mb-2 line-clamp-3">
+                  <p className="text-sm text-gray-300 mb-2">
                     {selectedImageData.caption}
                   </p>
                 )}
