@@ -7,8 +7,12 @@ import Music from './components/Music';
 import Gallery from './components/Gallery';
 import Events from './components/Events';
 import InstagramFeed from './components/InstagramFeed';
+import PerformanceMetrics from './components/PerformanceMetrics';
+import Testimonials from './components/Testimonials';
+import Newsletter from './components/Newsletter';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import SocialShare from './components/SocialShare';
 import './App.css';
 
 function App() {
@@ -52,6 +56,11 @@ function App() {
         scrollY={scrollY}
       />
       
+      {/* Floating Social Share */}
+      <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-40 hidden lg:block">
+        <SocialShare className="rotate-0" />
+      </div>
+      
       <main>
         <section id="home" className="relative">
           <Hero />
@@ -60,6 +69,8 @@ function App() {
         <section id="about" className="py-20">
           <About />
         </section>
+        
+        <PerformanceMetrics />
         
         <section id="music" className="py-20 bg-neutral-900">
           <Music />
@@ -73,9 +84,13 @@ function App() {
           <InstagramFeed />
         </section>
         
+        <Testimonials />
+        
         <section id="events" className="py-20">
           <Events />
         </section>
+        
+        <Newsletter />
         
         <section id="contact" className="py-20 bg-neutral-900">
           <Contact />
