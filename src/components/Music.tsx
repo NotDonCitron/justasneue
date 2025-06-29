@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Play, Pause } from 'lucide-react';
+import MixCloudPlayer from './MixCloudPlayer';
+import LiveStream from './LiveStream';
 
 interface Track {
   id: number;
@@ -44,14 +46,15 @@ const Music: React.FC = () => {
   return (
     <div className="container mx-auto px-6">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Tracks & Sets</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Music & Mixes</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Experience the energy through my latest releases and live sets. Bass-heavy tracks and house anthems.
+          Experience the energy through my latest releases, live sets, and exclusive mixes.
         </p>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        {/* Featured Track */}
+        <div className="lg:col-span-1">
           <div className="relative rounded-lg overflow-hidden group">
             <img 
               src={tracks[0].thumbnail}
@@ -89,50 +92,59 @@ const Music: React.FC = () => {
           </div>
         </div>
         
-        <div className="lg:col-span-3">
-          <div className="bg-neutral-800/50 rounded-lg p-6">
-            <h3 className="text-xl font-semibold mb-4">Featured Tracks</h3>
-            
-            <div className="space-y-8">
-              {tracks.map((track) => (
-                <div key={track.id} className="space-y-4">
-                  <div 
-                    className={`flex items-center p-3 rounded-lg track-item ${
-                      currentTrack === track.id ? 'bg-red-900/20 border-l-4 border-red-600' : ''
-                    }`}
-                  >
-                    <div className="flex-shrink-0 w-12 h-12 relative mr-4">
-                      <img 
-                        src={track.thumbnail} 
-                        alt={track.title} 
-                        className="w-full h-full object-cover rounded"
-                      />
-                    </div>
-                    
-                    <div className="flex-1">
-                      <h4 className="font-medium">{track.title}</h4>
-                      <p className="text-sm text-gray-400">Bass/House</p>
-                    </div>
-                    
-                    <div className="text-sm text-gray-400">{track.duration}</div>
-                  </div>
-                  
-                  <div className="w-full" dangerouslySetInnerHTML={{ __html: track.embedCode }} />
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-6 text-center">
-              <a 
-                href="https://soundcloud.com/justas-lange"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-red-500 hover:text-red-400 text-sm font-medium"
+        {/* Live Stream Section */}
+        <div className="lg:col-span-2">
+          <LiveStream />
+        </div>
+      </div>
+
+      {/* Mixcloud Player */}
+      <div className="mb-12">
+        <MixCloudPlayer />
+      </div>
+      
+      {/* Featured Tracks */}
+      <div className="bg-neutral-800/50 rounded-lg p-6">
+        <h3 className="text-xl font-semibold mb-4">Featured Tracks</h3>
+        
+        <div className="space-y-8">
+          {tracks.map((track) => (
+            <div key={track.id} className="space-y-4">
+              <div 
+                className={`flex items-center p-3 rounded-lg track-item ${
+                  currentTrack === track.id ? 'bg-red-900/20 border-l-4 border-red-600' : ''
+                }`}
               >
-                View All Tracks on SoundCloud
-              </a>
+                <div className="flex-shrink-0 w-12 h-12 relative mr-4">
+                  <img 
+                    src={track.thumbnail} 
+                    alt={track.title} 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                
+                <div className="flex-1">
+                  <h4 className="font-medium">{track.title}</h4>
+                  <p className="text-sm text-gray-400">Bass/House</p>
+                </div>
+                
+                <div className="text-sm text-gray-400">{track.duration}</div>
+              </div>
+              
+              <div className="w-full" dangerouslySetInnerHTML={{ __html: track.embedCode }} />
             </div>
-          </div>
+          ))}
+        </div>
+        
+        <div className="mt-6 text-center">
+          <a 
+            href="https://soundcloud.com/justas-lange"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-red-500 hover:text-red-400 text-sm font-medium"
+          >
+            View All Tracks on SoundCloud
+          </a>
         </div>
       </div>
     </div>
