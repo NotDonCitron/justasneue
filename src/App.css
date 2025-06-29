@@ -13,7 +13,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -48,7 +48,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-15px);
   }
   100% {
     transform: translateY(0);
@@ -56,7 +56,7 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .animate-slideInRight {
@@ -72,7 +72,7 @@
 }
 
 .animate-float {
-  animation: floatUp 5s ease-in-out infinite;
+  animation: floatUp 6s ease-in-out infinite;
 }
 
 .delay-100 {
@@ -96,8 +96,8 @@
 }
 
 .glass-effect {
-  background: rgba(20, 20, 20, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -142,8 +142,8 @@
 }
 
 .play-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
 }
 
 /* Custom track hover */
@@ -153,7 +153,7 @@
 
 .track-item:hover {
   background: rgba(255, 0, 0, 0.1);
-  transform: translateX(5px);
+  transform: translateX(8px);
 }
 
 /* Form focus effects */
@@ -163,13 +163,13 @@
 }
 
 .form-input:focus {
-  border-color: #ff0000;
-  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -177,10 +177,28 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff0000;
-  border-radius: 3px;
+  background: #ef4444;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff3333;
+  background: #dc2626;
+}
+
+/* Header-spezifische Optimierungen */
+.hero-text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive Header-Optimierungen */
+@media (max-width: 768px) {
+  .hero-background {
+    background-position: center top;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-background {
+    background-position: 30% center;
+  }
 }
