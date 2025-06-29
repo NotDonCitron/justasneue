@@ -12,7 +12,7 @@ const About: React.FC = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-red-600/40 to-transparent z-10"></div>
             <img 
-              src="https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              src="/Images/364268621_248985811283826_4097087762299984333_n.jpg"
               alt="Justas Lange performing" 
               className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
             />
@@ -28,29 +28,29 @@ const About: React.FC = () => {
           
           <div className="space-y-6 text-gray-300">
             <p className="leading-relaxed">
-              Justas Lange is an electronic music DJ known for his dynamic sets and ability to read the crowd. With a passion for creating unforgettable experiences, he seamlessly blends various electronic genres to keep the dance floor moving.
+              Justas Lange is a rising electronic music DJ from Lithuania, known for his high-energy sets and innovative approach to bass and house music. With a passion for creating unforgettable experiences, he seamlessly blends heavy bass drops with melodic house elements.
             </p>
             
             <p className="leading-relaxed">
-              From intimate club nights to larger venues, Justas has been making waves in the electronic music scene with his signature style and energy behind the decks. His sets are a journey through deep house, techno, and progressive elements.
+              From underground club nights to festival stages, Justas has been making waves in the electronic music scene with his signature style that combines technical precision with raw energy. His sets take listeners on a journey through deep basslines, progressive builds, and explosive drops.
             </p>
             
             <p className="leading-relaxed">
-              Whether it's warming up the crowd or headlining the main event, Justas brings technical precision and musical storytelling to every performance, ensuring each set is a unique experience.
+              Whether warming up the crowd or headlining the main event, Justas brings an infectious energy that transforms any venue into an electrifying experience. His dedication to the craft and ability to read the crowd has earned him recognition in the Baltic electronic music scene.
             </p>
           </div>
           
           <div className="mt-8 grid grid-cols-3 gap-6 text-center">
             <div>
-              <p className="text-4xl font-bold text-red-500">100+</p>
+              <p className="text-4xl font-bold text-red-500">50+</p>
               <p className="text-sm uppercase tracking-wider mt-2">Shows</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-red-500">20+</p>
+              <p className="text-4xl font-bold text-red-500">15+</p>
               <p className="text-sm uppercase tracking-wider mt-2">Venues</p>
             </div>
             <div>
-              <p className="text-4xl font-bold text-red-500">5+</p>
+              <p className="text-4xl font-bold text-red-500">3+</p>
               <p className="text-sm uppercase tracking-wider mt-2">Years</p>
             </div>
           </div>

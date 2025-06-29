@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
     e.preventDefault();
     // Form submission logic would go here
     console.log(formData);
-    alert('Thanks for reaching out! We will get back to you soon.');
+    alert('Thanks for reaching out! I will get back to you soon.');
     setFormData({
       name: '',
       email: '',
@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
       <div className="mb-12 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Have a question or want to book us for your event? Fill out the form below and we'll get back to you as soon as possible.
+          Ready to book me for your event or have a collaboration idea? Let's make some noise together.
         </p>
       </div>
       
@@ -78,8 +78,9 @@ const Contact: React.FC = () => {
                 className="w-full bg-neutral-800 border-0 rounded-sm p-3 text-white form-input focus:ring-0 focus:outline-none"
               >
                 <option value="">Select a subject</option>
-                <option value="booking">Booking Inquiry</option>
-                <option value="collaboration">Collaboration</option>
+                <option value="booking">Event Booking</option>
+                <option value="collaboration">Music Collaboration</option>
+                <option value="remix">Remix Request</option>
                 <option value="press">Press/Media</option>
                 <option value="other">Other</option>
               </select>
@@ -95,7 +96,7 @@ const Contact: React.FC = () => {
                 required
                 rows={5}
                 className="w-full bg-neutral-800 border-0 rounded-sm p-3 text-white form-input focus:ring-0 focus:outline-none resize-none"
-                placeholder="Your message"
+                placeholder="Tell me about your event, collaboration idea, or any questions you have..."
               ></textarea>
             </div>
             
@@ -118,7 +119,7 @@ const Contact: React.FC = () => {
                 <Mail className="text-red-500 mt-1 mr-4" size={20} />
                 <div>
                   <h4 className="font-medium mb-1">Email</h4>
-                  <p className="text-gray-400">bookings@gordoszn.com</p>
+                  <p className="text-gray-400">bookings@justaslange.com</p>
                 </div>
               </div>
               
@@ -126,20 +127,20 @@ const Contact: React.FC = () => {
                 <Phone className="text-red-500 mt-1 mr-4" size={20} />
                 <div>
                   <h4 className="font-medium mb-1">Phone</h4>
-                  <p className="text-gray-400">+1 (555) 123-4567</p>
+                  <p className="text-gray-400">+370 XXX XXXXX</p>
                 </div>
               </div>
               
               <div className="flex items-start">
                 <MapPin className="text-red-500 mt-1 mr-4" size={20} />
                 <div>
-                  <h4 className="font-medium mb-1">Office</h4>
-                  <p className="text-gray-400">123 Music Boulevard, Los Angeles, CA 90001</p>
+                  <h4 className="font-medium mb-1">Based in</h4>
+                  <p className="text-gray-400">Vilnius, Lithuania</p>
                 </div>
               </div>
             </div>
             
-            <h3 className="text-xl font-bold mb-6 border-b border-neutral-700 pb-4">Follow Us</h3>
+            <h3 className="text-xl font-bold mb-6 border-b border-neutral-700 pb-4">Follow Me</h3>
             
             <div className="flex space-x-4">
               <a href="#" className="p-3 bg-neutral-800 rounded-full hover:bg-red-600 transition-colors duration-300">
@@ -151,6 +152,14 @@ const Contact: React.FC = () => {
               <a href="#" className="p-3 bg-neutral-800 rounded-full hover:bg-red-600 transition-colors duration-300">
                 <Twitter size={20} />
               </a>
+            </div>
+
+            <div className="mt-8 p-4 bg-red-900/20 rounded-lg border border-red-600/30">
+              <h4 className="font-bold text-red-400 mb-2">Booking Info</h4>
+              <p className="text-sm text-gray-300">
+                Available for club nights, festivals, private events, and collaborations. 
+                Professional equipment and lighting setup available.
+              </p>
             </div>
           </div>
         </div>

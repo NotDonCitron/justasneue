@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Music from './components/Music';
+import Gallery from './components/Gallery';
 import Events from './components/Events';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -19,7 +20,7 @@ function App() {
       setScrollY(window.scrollY);
       
       // Determine active section based on scroll position
-      const sections = ['home', 'about', 'music', 'events', 'contact'];
+      const sections = ['home', 'about', 'music', 'gallery', 'events', 'contact'];
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -63,11 +64,15 @@ function App() {
           <Music />
         </section>
         
-        <section id="events" className="py-20">
+        <section id="gallery" className="py-20">
+          <Gallery />
+        </section>
+        
+        <section id="events" className="py-20 bg-neutral-900">
           <Events />
         </section>
         
-        <section id="contact" className="py-20 bg-neutral-900">
+        <section id="contact" className="py-20">
           <Contact />
         </section>
       </main>

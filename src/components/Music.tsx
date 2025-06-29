@@ -17,36 +17,36 @@ const Music: React.FC = () => {
   const tracks: Track[] = [
     { 
       id: 1, 
-      title: 'GORDOSZN - GOTTA GET IT', 
-      duration: '2:24', 
-      thumbnail: 'https://i1.sndcdn.com/artworks-Ue5KxvZPHVGBPPxw-Hs2Xtw-t500x500.jpg',
-      soundcloudUrl: 'https://on.soundcloud.com/yEsiLRqDMN6btBVP6',
-      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1720051390&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+      title: 'Justas Lange - Bass Drop Anthem', 
+      duration: '3:24', 
+      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      soundcloudUrl: 'https://soundcloud.com/justas-lange',
+      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     },
     { 
       id: 2, 
-      title: 'GORDOSZN - Late Night Drive', 
-      duration: '2:55', 
-      thumbnail: 'https://i1.sndcdn.com/artworks-Ue5KxvZPHVGBPPxw-Hs2Xtw-t500x500.jpg',
-      soundcloudUrl: 'https://on.soundcloud.com/yEsiLRqDMN6btBVP6',
-      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1720051390&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+      title: 'Justas Lange - Underground Vibes', 
+      duration: '4:15', 
+      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      soundcloudUrl: 'https://soundcloud.com/justas-lange',
+      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     },
     { 
       id: 3, 
-      title: 'GORDOSZN - GOTTA GET IT (Extended Mix)', 
-      duration: '3:45', 
-      thumbnail: 'https://i1.sndcdn.com/artworks-Ue5KxvZPHVGBPPxw-Hs2Xtw-t500x500.jpg',
-      soundcloudUrl: 'https://on.soundcloud.com/yEsiLRqDMN6btBVP6',
-      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1720051390&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
+      title: 'Justas Lange - Festival Mix 2024', 
+      duration: '5:45', 
+      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      soundcloudUrl: 'https://soundcloud.com/justas-lange',
+      embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     }
   ];
 
   return (
     <div className="container mx-auto px-6">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Tracks</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Tracks & Sets</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Check out my latest releases and remixes. New music dropping regularly.
+          Experience the energy through my latest releases and live sets. Bass-heavy tracks and house anthems.
         </p>
       </div>
       
@@ -78,7 +78,7 @@ const Music: React.FC = () => {
             <h3 className="text-xl font-semibold mb-4">Stream On</h3>
             <div className="flex space-x-4">
               <a 
-                href="https://soundcloud.com/gordoszn"
+                href="https://soundcloud.com/justas-lange"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-neutral-800 rounded hover:bg-neutral-700 transition-colors duration-300 cursor-pointer"
@@ -111,7 +111,7 @@ const Music: React.FC = () => {
                     
                     <div className="flex-1">
                       <h4 className="font-medium">{track.title}</h4>
-                      <p className="text-sm text-gray-400">Electronic/Bass</p>
+                      <p className="text-sm text-gray-400">Bass/House</p>
                     </div>
                     
                     <div className="text-sm text-gray-400">{track.duration}</div>
@@ -124,7 +124,7 @@ const Music: React.FC = () => {
             
             <div className="mt-6 text-center">
               <a 
-                href="https://soundcloud.com/gordoszn"
+                href="https://soundcloud.com/justas-lange"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-red-500 hover:text-red-400 text-sm font-medium"

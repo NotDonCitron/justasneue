@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
         ref={imageRef}
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(https://images.pexels.com/photos/2111015/pexels-photo-2111015.jpeg?auto=compress&cs=tinysrgb&w=1920)',
+          backgroundImage: 'url(/Images/justas-hero.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           transform: 'scale(1.1)'
@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
             JUSTAS <span className="text-red-600">LANGE</span>
           </h1>
           <p className="text-xl md:text-2xl mb-10 animate-fadeIn delay-200 opacity-90">
-            Electronic Music DJ | Creating Moments Through Sound
+            Electronic Music DJ | Bass & House Specialist
           </p>
           <div className="flex justify-center space-x-4 animate-fadeIn delay-300">
             <a 
