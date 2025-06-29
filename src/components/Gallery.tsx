@@ -21,12 +21,13 @@ const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
 
-  // Load Instagram data safely
+  // Load Instagram data safely with fallback
   let instagramData: any[] = [];
   try {
-    instagramData = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+    const data = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+    instagramData = Array.isArray(data) ? data : [];
   } catch (error) {
-    console.warn('Instagram data not available:', error);
+    console.warn('Instagram data not available, using fallback data:', error);
     instagramData = [];
   }
 
