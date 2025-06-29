@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart, Play } from 'lucide-react';
 import LazyImage from './LazyImage';
 import VideoPlayer from './VideoPlayer';
-import instagramData from '../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json';
 
 interface GalleryImage {
   id: string;
@@ -21,6 +20,15 @@ interface GalleryImage {
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
+
+  // Load Instagram data safely
+  let instagramData: any[] = [];
+  try {
+    instagramData = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+  } catch (error) {
+    console.warn('Instagram data not available:', error);
+    instagramData = [];
+  }
 
   // Local videos - ADD YOUR MP4 FILES HERE
   const localVideos: GalleryImage[] = [

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Calendar, MapPin, ExternalLink } from 'lucide-react';
-import instagramData from '../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json';
 
 interface InstagramPost {
   id: string;
@@ -18,6 +17,15 @@ interface InstagramPost {
 const InstagramFeed: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<InstagramPost | null>(null);
   const [filter, setFilter] = useState<'all' | 'pinned' | 'recent'>('all');
+
+  // Load Instagram data safely
+  let instagramData: any[] = [];
+  try {
+    instagramData = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+  } catch (error) {
+    console.warn('Instagram data not available:', error);
+    instagramData = [];
+  }
 
   const posts: InstagramPost[] = instagramData.map(post => ({
     id: post.id,

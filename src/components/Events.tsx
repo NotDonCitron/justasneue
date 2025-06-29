@@ -1,6 +1,5 @@
 import React from 'react';
 import { Clock, MapPin, Calendar, ExternalLink, Heart, MessageCircle } from 'lucide-react';
-import instagramData from '../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json';
 
 interface Event {
   id: string;
@@ -17,6 +16,15 @@ interface Event {
 }
 
 const Events: React.FC = () => {
+  // Load Instagram data safely
+  let instagramData: any[] = [];
+  try {
+    instagramData = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+  } catch (error) {
+    console.warn('Instagram data not available:', error);
+    instagramData = [];
+  }
+
   // Events aus Instagram-Daten extrahieren
   const instagramEvents: Event[] = instagramData
     .filter(post => 

@@ -13,8 +13,10 @@ import Newsletter from './components/Newsletter';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SocialShare from './components/SocialShare';
-import { RequestSystemDemo } from './components/RequestSystem';
 import './App.css';
+
+// Lazy load the request system to avoid initial load issues
+const RequestSystemDemo = React.lazy(() => import('./components/RequestSystem/RequestSystemDemo'));
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -51,14 +53,26 @@ function App() {
 
   // Check URL for request system demo
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('demo') === 'request-system') {
-      setShowRequestSystem(true);
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('demo') === 'request-system') {
+        setShowRequestSystem(true);
+      }
+    } catch (error) {
+      console.error('Error parsing URL params:', error);
     }
   }, []);
 
   if (showRequestSystem) {
-    return <RequestSystemDemo />;
+    return (
+      <React.Suspense fallback={
+        <div className="min-h-screen bg-black flex items-center justify-center">
+          <div className="text-white text-xl">Loading Request System...</div>
+        </div>
+      }>
+        <RequestSystemDemo />
+      </React.Suspense>
+    );
   }
 
   return (
