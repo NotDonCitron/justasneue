@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, MapPin, Calendar, ExternalLink, Heart, MessageCircle } from 'lucide-react';
 import LazyImage from './LazyImage';
+import { useTranslation } from 'react-i18next';
 
 interface Event {
   id: string;
@@ -17,6 +18,7 @@ interface Event {
 }
 
 const Events: React.FC = () => {
+  const { t } = useTranslation();
   const [instagramData, setInstagramData] = useState<any[]>([]);
 
   // Load Instagram data safely with dynamic import
@@ -129,15 +131,15 @@ const Events: React.FC = () => {
   return (
     <div className="container mx-auto px-6">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Events & Shows</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('events.title')}</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Erlebe die Energie live - Kommende Events und vergangene Auftritte in der deutschen Techno-Szene.
+          {t('events.subtitle')}
         </p>
       </div>
       
       {/* Upcoming Events */}
       <div className="mb-16">
-        <h3 className="text-2xl font-bold mb-8 text-red-500">Kommende Shows</h3>
+        <h3 className="text-2xl font-bold mb-8 text-red-500">{t('events.upcoming')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {upcomingEvents.map((event) => (
             <div 
@@ -149,15 +151,15 @@ const Events: React.FC = () => {
                   src={event.image} 
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
                   onError={() => {
                     // Fallback handled internally by LazyImage component
                   }}
+                  context="event"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
                 {event.isFromInstagram && (
                   <div className="absolute top-2 right-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded">
-                    LIVE
+                    {t('events.live')}
                   </div>
                 )}
               </div>
@@ -204,7 +206,7 @@ const Events: React.FC = () => {
                 )}
                 
                 <button className="w-full py-2 mt-2 border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-colors duration-300 rounded-sm">
-                  {event.isFromInstagram ? 'Auf Instagram ansehen' : 'Tickets kaufen'}
+                  {event.isFromInstagram ? t('events.viewOnInstagram') : t('events.buyTickets')}
                 </button>
               </div>
             </div>
@@ -214,7 +216,7 @@ const Events: React.FC = () => {
 
       {/* Past Events */}
       <div>
-        <h3 className="text-2xl font-bold mb-8 text-gray-400">Vergangene Auftritte</h3>
+        <h3 className="text-2xl font-bold mb-8 text-gray-400">{t('events.past')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pastEvents.map((event) => (
             <div 
@@ -226,10 +228,10 @@ const Events: React.FC = () => {
                   src={event.image} 
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
                   onError={() => {
                     // Fallback handled internally by LazyImage component
                   }}
+                  context="event"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
                 {event.isFromInstagram && (
@@ -264,7 +266,7 @@ const Events: React.FC = () => {
       <div className="text-center mt-12">
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button className="px-8 py-3 bg-transparent border border-white hover:border-red-500 hover:text-red-500 transition-all duration-300 rounded-sm">
-            Alle Events anzeigen
+            {t('events.showAll')}
           </button>
           <a
             href="https://instagram.com/justaslange"
@@ -273,7 +275,7 @@ const Events: React.FC = () => {
             className="inline-flex items-center px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white transition-all duration-300 rounded-sm"
           >
             <ExternalLink size={16} className="mr-2" />
-            Folge für Updates
+            {t('events.followForUpdates')}
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Testimonial {
   id: number;
@@ -12,44 +13,45 @@ interface Testimonial {
 }
 
 const Testimonials: React.FC = () => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const testimonials: Testimonial[] = [
     {
       id: 1,
       name: "Marcus Weber",
-      role: "Event Manager",
-      venue: "MS Connexion Complex",
-      content: "Justas bringt eine unglaubliche Energie auf die Bühne. Seine Sets sind technisch perfekt und die Crowd-Reaktion ist immer phänomenal. Ein absoluter Profi!",
+      role: "",
+      venue: "",
+      content: "Justas bringt mit seinen energiegeladenen Techno-Sets jede Crowd zum Kochen. Seine Leidenschaft für elektronische Musik ist in jedem Moment spürbar!",
       rating: 5,
-      image: "/images/image00003(1).jpeg"
+      image: "https://randomuser.me/api/portraits/men/32.jpg"
     },
     {
       id: 2,
       name: "Sarah Klein",
-      role: "Club Owner",
-      venue: "Das Zimmer Mannheim",
-      content: "Seit Jahren einer unserer zuverlässigsten DJs. Justas versteht es, die perfekte Atmosphäre zu schaffen und die Leute bis zum Schluss zu fesseln.",
+      role: "",
+      venue: "",
+      content: "Seit Justas bei uns auflegt, ist die Tanzfläche immer voll. Seine Trackauswahl und sein Gespür für den perfekten Moment machen jede Nacht unvergesslich.",
       rating: 5,
-      image: "/images/image00001(2).jpeg"
+      image: "https://randomuser.me/api/portraits/women/44.jpg"
     },
     {
       id: 3,
       name: "Tom Fischer",
-      role: "Booking Agent",
-      venue: "Basement Club",
-      content: "Justas hat sich in der deutschen Techno-Szene einen Namen gemacht. Seine Entwicklung als Artist ist beeindruckend und seine Sets werden immer besser.",
+      role: "",
+      venue: "",
+      content: "Justas ist ein Garant für ekstatische Stimmung und treibende Beats. Seine Sets sind technisch brillant und voller Überraschungen.",
       rating: 5,
-      image: "/images/image00002(1).jpeg"
+      image: "https://randomuser.me/api/portraits/men/65.jpg"
     },
     {
       id: 4,
       name: "Lisa Müller",
-      role: "Festival Coordinator",
-      venue: "Underground Events",
-      content: "Professionell, pünktlich und musikalisch auf höchstem Niveau. Justas ist genau der DJ, den man für wichtige Events braucht.",
+      role: "",
+      venue: "",
+      content: "Justas versteht es, die Crowd mit treibenden Techno-Beats und einzigartigen Übergängen in Ekstase zu versetzen. Jeder Auftritt ist ein Erlebnis für echte Liebhaber elektronischer Musik!",
       rating: 5,
-      image: "/images/image00001(2).jpeg"
+      image: "https://randomuser.me/api/portraits/women/68.jpg"
     }
   ];
 
@@ -75,9 +77,9 @@ const Testimonials: React.FC = () => {
     <div className="py-20 bg-black">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Was andere sagen</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('testimonials.title')}</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Feedback von Venues, Event-Managern und der Techno-Community
+            {t('testimonials.subtitle')}
           </p>
         </div>
 
@@ -161,15 +163,15 @@ const Testimonials: React.FC = () => {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>
             <div className="text-3xl font-bold text-red-500 mb-2">100%</div>
-            <div className="text-gray-400">Positive Bewertungen</div>
+            <div className="text-gray-400">{t('testimonials.positiveReviews')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-red-500 mb-2">50+</div>
-            <div className="text-gray-400">Zufriedene Venues</div>
+            <div className="text-gray-400">{t('testimonials.satisfiedVenues')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-red-500 mb-2">4 Jahre</div>
-            <div className="text-gray-400">Erfahrung in der Szene</div>
+            <div className="text-gray-400">{t('testimonials.yearsExperience')}</div>
           </div>
         </div>
       </div>

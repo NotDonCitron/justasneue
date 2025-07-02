@@ -1,0 +1,105 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About me",
+    "music": "Music",
+    "events": "Events",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "videos": "Videos"
+  },
+  "hero": {
+    "welcome": "Welcome to my page!",
+    "slogan": "Electronic music DJ | Bass & House specialist",
+    "description": "Originally from Lithuania, creates unforgettable experiences through powerful basslines and captivating house beats",
+    "activeListeners": "active listeners",
+    "lastLive": "Last live: Yesterday 11:30pm",
+    "latestSets": "Latest Sets",
+    "bookNow": "Book Now",
+    "stats": {
+      "shows": "Shows",
+      "venues": "Venues",
+      "fans": "Fans"
+    },
+    "scroll": "Scroll"
+  },
+  "contact": {
+    "title": "Contact Form",
+    "subtitle": "Ready to book me for your event or have a collaboration idea? Let's make some noise together.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "subject": "Subject",
+    "selectSubject": "Select a subject",
+    "subjectBooking": "Event Booking",
+    "subjectCollaboration": "Music Collaboration",
+    "subjectRemix": "Remix Request",
+    "subjectPress": "Press/Media",
+    "subjectOther": "Other",
+    "message": "Message",
+    "messagePlaceholder": "Tell me about your event, collaboration idea, or any questions you have...",
+    "sendMessage": "Send Message",
+    "thankYou": "Thanks for reaching out! I will get back to you soon.",
+    "infoTitle": "Contact Information",
+    "infoEmail": "Email",
+    "infoBased": "Based in",
+    "followMe": "Follow Me",
+    "bookingInfoTitle": "Booking Info",
+    "bookingInfoText": "Available for club nights, festivals, private events, and collaborations. Professional equipment and lighting setup available."
+  },
+  "about": {
+    "title": "About Justas",
+    "p1": "Justas Lange is a rising electronic music DJ from Lithuania, known for his high-energy sets and innovative approach to bass and house music. With a passion for creating unforgettable experiences, he seamlessly blends heavy bass drops with melodic house elements.",
+    "p2": "From underground club nights to festival stages, Justas has been making waves in the electronic music scene with his signature style that combines technical precision with raw energy. His sets take listeners on a journey through deep basslines, progressive builds, and explosive drops.",
+    "p3": "Whether warming up the crowd or headlining the main event, Justas brings an infectious energy that transforms any venue into an electrifying experience. His dedication to the craft and ability to read the crowd has earned him recognition in the Baltic electronic music scene.",
+    "stats": {
+      "shows": "Shows",
+      "venues": "Venues",
+      "years": "Years"
+    }
+  },
+  "events": {
+    "title": "Events & Shows",
+    "subtitle": "Experience the energy live - Upcoming events and past performances in the German techno scene.",
+    "upcoming": "Upcoming Shows",
+    "past": "Past Performances",
+    "live": "LIVE",
+    "viewOnInstagram": "View on Instagram",
+    "buyTickets": "Buy Tickets",
+    "showAll": "Show All Events",
+    "followForUpdates": "Follow for Updates"
+  },
+  "gallery": {
+    "title": "Photo & Video Gallery",
+    "subtitle": "Behind the scenes, live performances and studio moments - a visual insight into my world.",
+    "filterAll": "All",
+    "filterPerformance": "Live Sets",
+    "filterStudio": "Studio",
+    "filterEvent": "Events",
+    "filterLifestyle": "Lifestyle"
+  },
+  "music": {
+    "title": "Music & Latest Sets",
+    "latestRelease": "Latest Release",
+    "listenNow": "Listen Now",
+    "streamOn": "Stream On",
+    "featuredTracks": "Featured Tracks",
+    "viewAllOnSoundcloud": "View All Tracks on SoundCloud"
+  },
+  "testimonials": {
+    "title": "What others say",
+    "subtitle": "Feedback from venues, event managers and the techno community",
+    "positiveReviews": "Positive reviews",
+    "satisfiedVenues": "Satisfied venues",
+    "yearsExperience": "Years of experience in the scene"
+  },
+  "videoSection": {
+    "title": "Video Gallery",
+    "filterAll": "All Videos",
+    "filterPerformance": "Live Sets",
+    "filterStudio": "Studio",
+    "filterEvent": "Events",
+    "filterBehindScenes": "Behind the Scenes"
+  }
+} 

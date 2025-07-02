@@ -5,6 +5,7 @@ import VideoPlayer from './VideoPlayer';
 import ProgressiveVideo from './ProgressiveVideo';
 import { useTouchGestures } from '../hooks/useTouchGestures';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
+import { useTranslation } from 'react-i18next';
 
 interface GalleryImage {
   id: string;
@@ -21,6 +22,7 @@ interface GalleryImage {
 }
 
 const Gallery: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
   const [instagramData, setInstagramData] = useState<any[]>([]);
@@ -239,36 +241,33 @@ const Gallery: React.FC = () => {
     });
   };
 
+  // Filter-Buttons
+  const filterButtons = [
+    { key: 'all', label: t('gallery.filterAll') },
+    { key: 'performance', label: t('gallery.filterPerformance') },
+    { key: 'studio', label: t('gallery.filterStudio') },
+    { key: 'event', label: t('gallery.filterEvent') },
+    { key: 'lifestyle', label: t('gallery.filterLifestyle') }
+  ];
+
   return (
-    <div className="container mx-auto px-6">
+    <div className="container mx-auto px-6 py-12">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Foto & Video Galerie</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-          Behind the Scenes, Live-Auftritte und Studio-Momente - Ein visueller Einblick in meine Welt.
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('gallery.title')}</h2>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          {t('gallery.subtitle')}
         </p>
-        
-        {/* Filter buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {[
-            { key: 'all', label: 'Alle' },
-            { key: 'performance', label: 'Live Sets' },
-            { key: 'studio', label: 'Studio' },
-            { key: 'event', label: 'Events' },
-            { key: 'lifestyle', label: 'Lifestyle' }
-          ].map((category) => (
-            <button
-              key={category.key}
-              onClick={() => setFilter(category.key)}
-              className={`px-6 py-2 rounded-sm transition-all duration-300 ${
-                filter === category.key
-                  ? 'bg-red-600 text-white'
-                  : 'bg-neutral-800 text-gray-300 hover:bg-neutral-700'
-              }`}
-            >
-              {category.label}
-            </button>
-          ))}
-        </div>
+      </div>
+      <div className="flex justify-center gap-4 mb-8">
+        {filterButtons.map(btn => (
+          <button
+            key={btn.key}
+            className={`px-4 py-2 rounded ${filter === btn.key ? 'bg-red-600 text-white' : 'bg-neutral-800 text-gray-300'}`}
+            onClick={() => setFilter(btn.key)}
+          >
+            {btn.label}
+          </button>
+        ))}
       </div>
       
       {/* Gallery grid */}
@@ -286,6 +285,7 @@ const Gallery: React.FC = () => {
                     src={image.thumbnail || image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    context="video"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-black/70 rounded-full p-4 transform transition-all duration-300 group-hover:scale-110">
@@ -301,6 +301,7 @@ const Gallery: React.FC = () => {
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  context="gallery"
                 />
               )}
             </div>
@@ -403,6 +404,7 @@ const LightboxWithGestures: React.FC<{
             alt={selectedImageData.alt}
             className="max-w-full max-h-full object-contain"
             priority={true}
+            context={selectedImageData.mediaType === 'video' ? 'video' : 'gallery'}
           />
         )}
         

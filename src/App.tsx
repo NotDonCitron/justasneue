@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Play, Pause, Instagram, Facebook, Twitter } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,9 +13,12 @@ import Newsletter from './components/Newsletter';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SocialShare from './components/SocialShare';
-import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
+import './styles/justas-animations.css';
+import MusicPlayer from './components/MusicPlayer';
+import { AnimatedButton, SocialIcons } from './components/AnimatedComponents';
+import './i18n';
 
 // Lazy load heavy components to avoid initial load issues
 // Instagram feed removed as requested
@@ -137,6 +139,21 @@ function App() {
           <ErrorBoundary>
             <section id="videos">
               <VideoSection />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="music-player" className="py-20 bg-neutral-900">
+              <MusicPlayer />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section className="py-20 bg-black">
+              <div className="container mx-auto px-6 flex flex-col items-center gap-4">
+                <AnimatedButton onClick={() => alert('Book Now Clicked!')}>Book Now</AnimatedButton>
+                <SocialIcons />
+              </div>
             </section>
           </ErrorBoundary>
         </main>

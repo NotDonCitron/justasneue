@@ -2,6 +2,7 @@ import React, { useState, Suspense } from 'react';
 import { Play, Pause } from 'lucide-react';
 import LazyImage from './LazyImage';
 import LoadingSpinner from './LoadingSpinner';
+import { useTranslation } from 'react-i18next';
 
 // Dynamic import for heavy component
 const MixCloudPlayer = React.lazy(() => import('./MixCloudPlayer'));
@@ -16,6 +17,7 @@ interface Track {
 }
 
 const Music: React.FC = () => {
+  const { t } = useTranslation();
   const [currentTrack, setCurrentTrack] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   
@@ -47,12 +49,19 @@ const Music: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-6">
-      <div className="mb-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Music & Mixes</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          Experience the energy through my latest releases, live sets, and exclusive mixes.
-        </p>
+    <div className="container mx-auto px-6 py-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">{t('music.title')}</h2>
+      <div className="flex justify-center">
+        <iframe
+          width="100%"
+          height="166"
+          scrolling="no"
+          frameBorder="no"
+          allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ef4444&auto_play=false&show_artwork=true"
+          title="Justas Lange SoundCloud Player"
+          style={{ maxWidth: 600, width: '100%', borderRadius: 12 }}
+        ></iframe>
       </div>
       
       {/* Featured Track Section */}
@@ -63,11 +72,11 @@ const Music: React.FC = () => {
               src={tracks[0].thumbnail}
               alt="Latest Release" 
               className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
+              context="music"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70"></div>
             <div className="absolute bottom-0 left-0 p-6">
-              <h3 className="text-2xl font-bold mb-2">Latest Release</h3>
+              <h3 className="text-2xl font-bold mb-2">{t('music.latestRelease')}</h3>
               <p className="text-red-400 mb-4">{tracks[0].title}</p>
               <a 
                 href={tracks[0].soundcloudUrl}
@@ -76,13 +85,13 @@ const Music: React.FC = () => {
                 className="px-5 py-2 bg-red-600 hover:bg-red-700 rounded-sm flex items-center space-x-2 play-btn w-fit"
               >
                 <Play size={18} />
-                <span>Listen Now</span>
+                <span>{t('music.listenNow')}</span>
               </a>
             </div>
           </div>
 
           <div className="mt-8 text-center">
-            <h3 className="text-xl font-semibold mb-4">Stream On</h3>
+            <h3 className="text-xl font-semibold mb-4">{t('music.streamOn')}</h3>
             <div className="flex justify-center">
               <a 
                 href="https://soundcloud.com/justas-lange"
@@ -90,7 +99,14 @@ const Music: React.FC = () => {
                 rel="noopener noreferrer"
                 className="p-3 bg-neutral-800 rounded hover:bg-neutral-700 transition-colors duration-300 cursor-pointer"
               >
-                <LazyImage src="https://upload.wikimedia.org/wikipedia/commons/9/96/SoundCloud_icon.svg" alt="SoundCloud" className="h-8 w-8" loading="lazy" />
+                <div className="relative overflow-hidden h-8 w-8">
+                  <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+                    {/* SoundCloud SVG Logo */}
+                    <svg viewBox="0 0 32 32" width="32" height="32" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-orange-500">
+                      <path d="M25.6 18.667c-0.267 0-0.533 0.027-0.8 0.08-0.267-2.987-2.88-5.28-5.867-5.28-0.56 0-1.12 0.080-1.653 0.24-0.267 0.080-0.427 0.347-0.347 0.613 0.080 0.267 0.347 0.427 0.613 0.347 0.453-0.133 0.933-0.2 1.387-0.2 2.56 0 4.693 2.027 4.8 4.587 0.013 0.293 0.24 0.52 0.533 0.52h1.333c0.733 0 1.333 0.6 1.333 1.333s-0.6 1.333-1.333 1.333h-13.867c-0.733 0-1.333-0.6-1.333-1.333s0.6-1.333 1.333-1.333h0.267c0.293 0 0.533-0.24 0.533-0.533v-7.467c0-0.293-0.24-0.533-0.533-0.533h-0.267c-0.733 0-1.333 0.6-1.333 1.333v7.467c0 0.293-0.24 0.533-0.533 0.533h-0.267c-0.733 0-1.333-0.6-1.333-1.333s0.6-1.333 1.333-1.333h0.267c0.293 0 0.533-0.24 0.533-0.533v-5.867c0-0.293-0.24-0.533-0.533-0.533h-0.267c-0.733 0-1.333 0.6-1.333 1.333v5.867c0 0.293-0.24 0.533-0.533 0.533h-0.267c-0.733 0-1.333-0.6-1.333-1.333s0.6-1.333 1.333-1.333h0.267c0.293 0 0.533-0.24 0.533-0.533v-4.267c0-0.293-0.24-0.533-0.533-0.533h-0.267c-0.733 0-1.333 0.6-1.333 1.333v4.267c0 0.293-0.24 0.533-0.533 0.533h-0.267c-0.733 0-1.333-0.6-1.333-1.333s0.6-1.333 1.333-1.333h0.267c0.293 0 0.533-0.24 0.533-0.533v-2.667c0-0.293-0.24-0.533-0.533-0.533h-0.267c-0.733 0-1.333 0.6-1.333 1.333v2.667c0 0.293-0.24 0.533-0.533 0.533h-0.267c-0.733 0-1.333-0.6-1.333-1.333s0.6-1.333 1.333-1.333h17.067c0.733 0 1.333 0.6 1.333 1.333s-0.6 1.333-1.333 1.333z"/>
+                    </svg>
+                  </div>
+                </div>
               </a>
             </div>
           </div>
@@ -106,7 +122,7 @@ const Music: React.FC = () => {
       
       {/* Featured Tracks */}
       <div className="bg-neutral-800/50 rounded-lg p-6">
-        <h3 className="text-xl font-semibold mb-4">Featured Tracks</h3>
+        <h3 className="text-xl font-semibold mb-4">{t('music.featuredTracks')}</h3>
         
         <div className="space-y-8">
           {tracks.map((track) => (
@@ -121,7 +137,7 @@ const Music: React.FC = () => {
                     src={track.thumbnail} 
                     alt={track.title} 
                     className="w-full h-full object-cover rounded"
-                    loading="lazy"
+                    context="music"
                   />
                 </div>
                 
@@ -145,7 +161,7 @@ const Music: React.FC = () => {
             rel="noopener noreferrer"
             className="text-red-500 hover:text-red-400 text-sm font-medium"
           >
-            View All Tracks on SoundCloud
+            {t('music.viewAllOnSoundcloud')}
           </a>
         </div>
       </div>

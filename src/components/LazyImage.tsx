@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import LoadingSpinner from './LoadingSpinner';
+import { Music, Camera, Calendar, Play, Image as ImageIcon } from 'lucide-react';
 
 interface LazyImageProps {
   src: string;
@@ -11,6 +12,7 @@ interface LazyImageProps {
   webpSrc?: string;
   sizes?: string;
   priority?: boolean;
+  context?: 'music' | 'gallery' | 'event' | 'video' | 'general';
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({ 
@@ -22,7 +24,8 @@ const LazyImage: React.FC<LazyImageProps> = ({
   onError,
   webpSrc,
   sizes,
-  priority = false
+  priority = false,
+  context = 'general'
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
@@ -79,23 +82,25 @@ const LazyImage: React.FC<LazyImageProps> = ({
     onError?.();
   };
 
+  const renderContextIcon = () => {
+    switch (context) {
+      case 'music':
+        return <Music size={40} className="text-red-500 opacity-60" />;
+      case 'gallery':
+        return <Camera size={40} className="text-gray-400 opacity-60" />;
+      case 'event':
+        return <Calendar size={40} className="text-blue-400 opacity-60" />;
+      case 'video':
+        return <Play size={40} className="text-green-400 opacity-60" />;
+      default:
+        return <ImageIcon size={40} className="text-gray-400 opacity-60" />;
+    }
+  };
+
   const getOptimalSrc = () => {
     if (hasError) {
-      // Enhanced fallback system for Instagram URLs
-      if (src.includes('instagram.com') || src.includes('cdninstagram.com')) {
-        // Use a local fallback image
-        return '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
-      }
-      return placeholder || '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+      return placeholder || '';
     }
-    
-    // For Instagram URLs, add a proxy or use local images directly
-    if (src.includes('instagram.com') || src.includes('cdninstagram.com')) {
-      // Skip Instagram URLs and use fallback immediately to avoid CORS issues
-      console.warn('Instagram image detected, using fallback to avoid CORS issues:', src);
-      return '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
-    }
-    
     if (webpSrc && supportsWebP) return webpSrc;
     return src;
   };
@@ -112,23 +117,20 @@ const LazyImage: React.FC<LazyImageProps> = ({
               className="w-full h-full object-cover opacity-30 blur-sm scale-110"
             />
           ) : (
-            <LoadingSpinner size="md" color="red" />
+            renderContextIcon()
           )}
         </div>
       )}
       
       {/* Error state */}
-      {hasError && !src.includes('instagram.com') && !src.includes('cdninstagram.com') && (
+      {hasError && (
         <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
-          <div className="text-gray-400 text-center">
-            <div className="text-2xl mb-2">🖼️</div>
-            <p className="text-sm">Bild konnte nicht geladen werden</p>
-          </div>
+          {renderContextIcon()}
         </div>
       )}
       
       {/* Main image */}
-      {isInView && (
+      {isInView && !hasError && (
         <img
           ref={imgRef}
           src={getOptimalSrc()}

@@ -73,7 +73,7 @@ const ArtistSpotlight: React.FC = () => {
                   src={currentImage.src}
                   alt={currentImage.title}
                   className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  context="gallery"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 
@@ -186,7 +186,7 @@ const ArtistSpotlight: React.FC = () => {
                   src={image.src}
                   alt={image.title}
                   className="w-full h-24 md:h-32 object-cover transition-transform duration-300 group-hover:scale-110"
-                  loading="lazy"
+                  context="gallery"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300"></div>
                 <div className="absolute bottom-1 left-1 right-1">

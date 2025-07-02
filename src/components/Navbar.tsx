@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface NavbarProps {
   activeSection: string;
@@ -16,6 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true); // Start with dark mode
+  const { t, i18n } = useTranslation();
   
   useEffect(() => {
     setIsScrolled(scrollY > 50);
@@ -59,13 +61,13 @@ const Navbar: React.FC<NavbarProps> = ({
   };
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'music', label: 'Music' },
-    { id: 'videos', label: 'Videos' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'events', label: 'Events' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'home', label: t('navbar.home') },
+    { id: 'about', label: t('navbar.about') },
+    { id: 'music', label: t('navbar.music') },
+    { id: 'videos', label: t('navbar.videos', 'Videos') },
+    { id: 'gallery', label: t('navbar.gallery') },
+    { id: 'events', label: t('navbar.events') },
+    { id: 'contact', label: t('navbar.contact') }
   ];
 
   return (
@@ -96,28 +98,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   </button>
                 </li>
               ))}
-              {/* Dark Mode Toggle */}
-              <li>
-                <button
-                  onClick={toggleDarkMode}
-                  className="p-2 text-white dark:text-white hover:text-red-500 transition-colors duration-300"
-                  aria-label="Toggle dark mode"
-                >
-                  {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
-              </li>
             </ul>
           </nav>
           
           {/* Mobile Menu Button & Dark Mode Toggle */}
           <div className="md:hidden flex items-center space-x-3">
-            <button
-              onClick={toggleDarkMode}
-              className="text-white dark:text-white focus:outline-none"
-              aria-label="Toggle dark mode"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
             <button 
               className="text-white dark:text-white focus:outline-none"
               onClick={toggleMobileMenu}
@@ -125,6 +110,13 @@ const Navbar: React.FC<NavbarProps> = ({
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
+          <button
+            style={{ position: 'absolute', top: 16, right: 16 }}
+            onClick={() => i18n.changeLanguage(i18n.language === 'de' ? 'en' : 'de')}
+            aria-label="Sprache wechseln"
+          >
+            {i18n.language === 'de' ? 'EN' : 'DE'}
+          </button>
         </div>
       </div>
       
