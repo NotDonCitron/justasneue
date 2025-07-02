@@ -8,22 +8,46 @@ interface LazyImageProps {
   placeholder?: string;
   onLoad?: () => void;
   onError?: () => void;
+  webpSrc?: string;
+  sizes?: string;
+  priority?: boolean;
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({
-  src,
-  alt,
-  className = '',
-  placeholder = '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+const LazyImage: React.FC<LazyImageProps> = ({ 
+  src, 
+  alt, 
+  className = '', 
+  placeholder,
   onLoad,
-  onError
+  onError,
+  webpSrc,
+  sizes,
+  priority = false
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
+  const [supportsWebP, setSupportsWebP] = useState<boolean | null>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // WebP support detection
   useEffect(() => {
+    const checkWebPSupport = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      const dataURL = canvas.toDataURL('image/webp');
+      setSupportsWebP(dataURL.indexOf('data:image/webp') === 0);
+    };
+    
+    checkWebPSupport();
+  }, []);
+
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    if (priority) return; // Skip observer for priority images
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -31,15 +55,18 @@ const LazyImage: React.FC<LazyImageProps> = ({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '50px' // Start loading 50px before entering viewport
+      }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [priority]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -51,20 +78,49 @@ const LazyImage: React.FC<LazyImageProps> = ({
     onError?.();
   };
 
+  const getOptimalSrc = () => {
+    if (hasError) return placeholder || src;
+    if (webpSrc && supportsWebP) return webpSrc;
+    return src;
+  };
+
   return (
-    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
+    <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
+      {/* Placeholder/Loading state */}
       {!isLoaded && !hasError && (
         <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
-          <LoadingSpinner size="md" color="red" />
+          {placeholder ? (
+            <img 
+              src={placeholder} 
+              alt={`${alt} placeholder`}
+              className="w-full h-full object-cover opacity-30 blur-sm scale-110"
+            />
+          ) : (
+            <LoadingSpinner size="md" color="red" />
+          )}
         </div>
       )}
       
-      {isInView && (
+      {/* Error state */}
+      {hasError && (
+        <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+          <div className="text-gray-400 text-center">
+            <div className="text-2xl mb-2">🖼️</div>
+            <p className="text-sm">Bild konnte nicht geladen werden</p>
+          </div>
+        </div>
+      )}
+      
+      {/* Main image */}
+      {isInView && !hasError && (
         <img
-          src={hasError ? placeholder : src}
+          ref={imgRef}
+          src={getOptimalSrc()}
           alt={alt}
           onLoad={handleLoad}
           onError={handleError}
+          sizes={sizes}
+          loading={priority ? 'eager' : 'lazy'}
           className={`
             w-full h-full object-cover transition-opacity duration-500
             ${isLoaded ? 'opacity-100' : 'opacity-0'}

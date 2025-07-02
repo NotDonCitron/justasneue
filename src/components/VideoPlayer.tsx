@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, Download } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, Download, Share, Link, Check } from 'lucide-react';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 
 interface VideoPlayerProps {
   src: string;
@@ -141,6 +142,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
     video.currentTime = 0;
     setCurrentTime(0);
+  };
+
+  const { copyToClipboard, isCopied } = useCopyToClipboard();
+
+  const copyVideoLink = () => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('video', encodeURIComponent(src));
+    if (title) {
+      currentUrl.searchParams.set('title', encodeURIComponent(title));
+    }
+    copyToClipboard(currentUrl.toString());
   };
 
   const downloadVideo = () => {
@@ -294,6 +306,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             </div>
 
             <div className="flex items-center space-x-2">
+              <button
+                onClick={copyVideoLink}
+                className="text-white hover:text-red-500 transition-colors duration-300 relative"
+                title="Link kopieren"
+              >
+                {isCopied ? <Check size={18} /> : <Link size={18} />}
+                {isCopied && (
+                  <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                    Kopiert!
+                  </span>
+                )}
+              </button>
+              
               <button
                 onClick={downloadVideo}
                 className="text-white hover:text-red-500 transition-colors duration-300"

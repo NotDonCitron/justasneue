@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart, Play } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart, Play, Share, Link } from 'lucide-react';
 import LazyImage from './LazyImage';
 import VideoPlayer from './VideoPlayer';
+import ProgressiveVideo from './ProgressiveVideo';
+import { useTouchGestures } from '../hooks/useTouchGestures';
+import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 
 interface GalleryImage {
   id: string;
@@ -265,80 +268,142 @@ const Gallery: React.FC = () => {
       
       {/* Lightbox */}
       {selectedImage && selectedImageData && (
-        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-6xl max-h-full">
-            {selectedImageData.mediaType === 'video' ? (
-              <VideoPlayer
-                src={selectedImageData.src}
-                poster={selectedImageData.thumbnail}
-                title={selectedImageData.alt}
-                className="max-w-full max-h-full"
-              />
-            ) : (
-              <img
-                src={selectedImageData.src}
-                alt={selectedImageData.alt}
-                className="max-w-full max-h-full object-contain"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
-                }}
-              />
-            )}
-            
-            {/* Close button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2"
-            >
-              <X size={24} />
-            </button>
-            
-            {/* Navigation buttons */}
-            <button
-              onClick={() => navigateImage('prev')}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2"
-            >
-              <ChevronLeft size={32} />
-            </button>
-            
-            <button
-              onClick={() => navigateImage('next')}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2"
-            >
-              <ChevronRight size={32} />
-            </button>
-            
-            {/* Video info overlay */}
-            {selectedImageData.mediaType === 'video' && (
-              <div className="absolute bottom-4 left-4 right-4 text-white bg-black/70 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm uppercase tracking-wider text-red-400 bg-red-600/20 px-2 py-1 rounded">
-                    {selectedImageData.category} • VIDEO
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold mb-2">{selectedImageData.alt}</h3>
-                {selectedImageData.caption && (
-                  <p className="text-sm text-gray-300 mb-2">
-                    {selectedImageData.caption}
-                  </p>
-                )}
-                <div className="flex items-center text-sm text-gray-400">
-                  <Calendar size={14} className="mr-1" />
-                  <span>{formatDate(selectedImageData.date)}</span>
-                  {selectedImageData.location && (
-                    <>
-                      <span className="mx-2">•</span>
-                      <MapPin size={14} className="mr-1" />
-                      <span>{selectedImageData.location}</span>
-                    </>
-                  )}
-                </div>
-              </div>
+        <LightboxWithGestures 
+          selectedImageData={selectedImageData}
+          onClose={closeLightbox}
+          onNavigate={navigateImage}
+          formatDate={formatDate}
+        />
+      )}
+    </div>
+  );
+};
+
+// Separate component for lightbox with touch gestures
+const LightboxWithGestures: React.FC<{
+  selectedImageData: GalleryImage;
+  onClose: () => void;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  formatDate: (date: string) => string;
+}> = ({ selectedImageData, onClose, onNavigate, formatDate }) => {
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const { copyToClipboard, isCopied } = useCopyToClipboard();
+
+  const copyImageLink = () => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('image', selectedImageData.id);
+    currentUrl.searchParams.set('title', encodeURIComponent(selectedImageData.alt));
+    copyToClipboard(currentUrl.toString());
+  };
+
+  useTouchGestures(lightboxRef, {
+    onSwipeLeft: () => onNavigate('next'),
+    onSwipeRight: () => onNavigate('prev'),
+    onSwipeUp: () => onClose(),
+    onTap: (e) => {
+      // Close on background tap
+      if (e.target === lightboxRef.current) {
+        onClose();
+      }
+    }
+  });
+
+  return (
+    <div 
+      ref={lightboxRef}
+      className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="relative max-w-6xl max-h-full">
+        {selectedImageData.mediaType === 'video' ? (
+          <ProgressiveVideo
+            src={selectedImageData.src}
+            poster={selectedImageData.thumbnail}
+            title={selectedImageData.alt}
+            className="max-w-full max-h-[80vh]"
+            preloadStrategy="metadata"
+          />
+        ) : (
+          <LazyImage
+            src={selectedImageData.src}
+            alt={selectedImageData.alt}
+            className="max-w-full max-h-full object-contain"
+            priority={true}
+          />
+        )}
+        
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2 z-10"
+        >
+          <X size={24} />
+        </button>
+        
+        {/* Copy link button */}
+        <button
+          onClick={copyImageLink}
+          className="absolute top-4 right-16 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2 z-10 relative"
+          title="Link kopieren"
+        >
+          {isCopied ? <span className="text-green-400">✓</span> : <Link size={20} />}
+          {isCopied && (
+            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+              Kopiert!
+            </span>
+          )}
+        </button>
+        
+        {/* Navigation buttons */}
+        <button
+          onClick={() => onNavigate('prev')}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2"
+        >
+          <ChevronLeft size={32} />
+        </button>
+        
+        <button
+          onClick={() => onNavigate('next')}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-red-500 transition-colors duration-300 bg-black/50 rounded-full p-2"
+        >
+          <ChevronRight size={32} />
+        </button>
+        
+        {/* Touch instructions for mobile */}
+        <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white text-xs bg-black/50 px-3 py-1 rounded-full lg:hidden">
+          Wischen: Weiter • Hoch: Schließen
+        </div>
+        
+        {/* Media info overlay */}
+        <div className="absolute bottom-4 left-4 right-4 text-white bg-black/70 rounded-lg p-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm uppercase tracking-wider text-red-400 bg-red-600/20 px-2 py-1 rounded">
+              {selectedImageData.category} {selectedImageData.mediaType === 'video' && '• VIDEO'}
+            </span>
+          </div>
+          <h3 className="text-lg font-bold mb-2">{selectedImageData.alt}</h3>
+          {selectedImageData.caption && (
+            <p className="text-sm text-gray-300 mb-2">
+              {selectedImageData.caption}
+            </p>
+          )}
+          <div className="flex items-center text-sm text-gray-400">
+            <Calendar size={14} className="mr-1" />
+            <span>{formatDate(selectedImageData.date)}</span>
+            {selectedImageData.location && (
+              <>
+                <span className="mx-2">•</span>
+                <MapPin size={14} className="mr-1" />
+                <span>{selectedImageData.location}</span>
+              </>
             )}
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
