@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Music from './components/Music';
 import Gallery from './components/Gallery';
+import VideoSection from './components/VideoSection';
 import Events from './components/Events';
 import InstagramFeed from './components/InstagramFeed';
 import PerformanceMetrics from './components/PerformanceMetrics';
@@ -29,7 +30,7 @@ function App() {
       setScrollY(window.scrollY);
       
       // Determine active section based on scroll position
-      const sections = ['home', 'about', 'music', 'gallery', 'instagram', 'events', 'contact'];
+      const sections = ['home', 'about', 'music', 'videos', 'gallery', 'instagram', 'events', 'contact'];
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -112,6 +113,10 @@ function App() {
         
         <section id="music" className="py-20 bg-neutral-900">
           <Music />
+        </section>
+        
+        <section id="videos">
+          <VideoSection />
         </section>
         
         <section id="gallery" className="py-20">
