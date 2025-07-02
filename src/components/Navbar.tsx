@@ -64,7 +64,6 @@ const Navbar: React.FC<NavbarProps> = ({
     { id: 'music', label: 'Music' },
     { id: 'videos', label: 'Videos' },
     { id: 'gallery', label: 'Gallery' },
-    { id: 'instagram', label: 'Instagram' },
     { id: 'events', label: 'Events' },
     { id: 'contact', label: 'Contact' }
   ];

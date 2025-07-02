@@ -45,9 +45,21 @@ const Events: React.FC = () => {
        post.locationName.toLowerCase().includes('bar'))
     )
     .slice(0, 8)
-    .map(post => {
+    .map((post, index) => {
       const eventDate = new Date(post.timestamp * 1000);
       const isUpcoming = eventDate > new Date();
+      
+      // Use local fallback images instead of Instagram URLs to avoid CORS issues
+      const localImages = [
+        '/images/image00003(1).jpeg',
+        '/images/image00001(2).jpeg',
+        '/images/image00002(1).jpeg',
+        '/images/image00001.jpeg',
+        '/images/image00002.jpeg',
+        '/images/image00003.jpeg',
+        '/images/image00004.jpeg',
+        '/images/image00005.jpeg'
+      ];
       
       return {
         id: post.id,
@@ -62,7 +74,7 @@ const Events: React.FC = () => {
           minute: '2-digit'
         }) + ' - Late',
         location: post.locationName || 'Location TBA',
-        image: post.displayUrl,
+        image: localImages[index % localImages.length], // Use local images instead of post.displayUrl
         status: isUpcoming ? 'upcoming' : 'past',
         description: post.caption,
         likes: post.likes,
@@ -79,7 +91,7 @@ const Events: React.FC = () => {
       date: '15. Juli 2025',
       time: '22:00 - 06:00',
       location: 'MS Connexion Complex, Mannheim',
-      image: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      image: '/images/image00003(1).jpeg',
       status: 'upcoming',
       description: 'Eine Nacht voller harter Techno-Beats und Underground-Vibes'
     },
@@ -89,9 +101,19 @@ const Events: React.FC = () => {
       date: '22. August 2025',
       time: '18:00 - 04:00',
       location: 'Open Air Stage, Mannheim',
-      image: '/Images/WhatsApp Image 2025-05-10 at 15.10.27 copy.jpeg',
+      image: '/images/image00001(2).jpeg',
       status: 'upcoming',
       description: 'Festival-Atmosphäre mit den besten Bass und House Tracks'
+    },
+    {
+      id: 'manual-3',
+      title: 'Studio Sessions Live',
+      date: '05. September 2025',
+      time: '20:00 - 02:00',
+      location: 'Private Studio, Mannheim',
+      image: '/images/image00002(1).jpeg',
+      status: 'upcoming',
+      description: 'Exklusive Studio-Session mit Live-Performance'
     }
   ];
 
@@ -128,9 +150,8 @@ const Events: React.FC = () => {
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+                  onError={() => {
+                    // Fallback handled internally by LazyImage component
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
@@ -206,9 +227,8 @@ const Events: React.FC = () => {
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+                  onError={() => {
+                    // Fallback handled internally by LazyImage component
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>

@@ -1,8 +1,11 @@
-import { useEffect, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowDown, Play, Calendar, Users, Radio } from 'lucide-react';
+import ParticleEffect from './ParticleEffect';
 
 const Hero: React.FC = () => {
   const imageRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [activeListeners] = useState(Math.floor(Math.random() * 500) + 200);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -13,6 +16,9 @@ const Hero: React.FC = () => {
       const y = (window.innerHeight / 2 - clientY) / 50;
       
       imageRef.current.style.transform = `translate(${x}px, ${y}px)`;
+      
+      // Update mouse position for lighting effect
+      setMousePos({ x: clientX, y: clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -28,47 +34,111 @@ const Hero: React.FC = () => {
 
   return (
     <div className="relative h-screen flex items-center overflow-hidden">
-      {/* Optimierter Gradient-Overlay für bessere Lesbarkeit */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/80 z-10"></div>
+      {/* Enhanced Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/90 z-10"></div>
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-red-900/10 to-black/30 z-10"></div>
       
-      {/* Header-Hintergrundbild mit optimierten Dimensionen */}
+      {/* Interactive Mouse Lighting Effect */}
+      <div 
+        className="absolute inset-0 z-15 pointer-events-none opacity-60"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(239,68,68,0.15), transparent 40%)`
+        }}
+      ></div>
+      
+      {/* Particle Effect */}
+      <ParticleEffect />
+      
+      {/* Header Background Image */}
       <div 
         ref={imageRef}
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(/Images/364268621_248985811283826_4097087762299984333_n.jpg)',
+          backgroundImage: 'url("./images/image00003(1).jpeg")',
+          backgroundColor: '#1a1a1a',
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
           transform: 'scale(1.05)',
-          filter: 'brightness(0.8) contrast(1.1)'
+          filter: 'brightness(0.7) contrast(1.2)',
+          minHeight: '100vh'
         }}
       ></div>
       
       <div className="container mx-auto px-6 relative z-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fadeIn text-white drop-shadow-2xl">
-            JUSTAS <span className="text-red-500">LANGE</span>
+          {/* Enhanced Typography */}
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-black mb-6 animate-fadeIn text-white drop-shadow-2xl relative">
+            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+              JUSTAS
+            </span>
+            <span className="text-red-500 ml-4 relative">
+              LANGE
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-red-500 animate-pulse"></div>
+            </span>
           </h1>
+          
           <p className="text-lg md:text-xl lg:text-2xl mb-8 animate-fadeIn delay-200 text-gray-100 drop-shadow-lg font-medium">
             Elektronische Musik DJ | Bass & House Spezialist
           </p>
-          <p className="text-base md:text-lg mb-10 animate-fadeIn delay-300 text-gray-200 max-w-2xl mx-auto">
+          
+          <p className="text-base md:text-lg mb-8 animate-fadeIn delay-300 text-gray-200 max-w-2xl mx-auto">
             Aus Litauen stammend, kreiert unvergessliche Erlebnisse durch kraftvolle Basslines und mitreißende House-Beats
           </p>
+          
+          {/* Social Proof Elements */}
+          <div className="flex items-center justify-center gap-4 mb-8 text-sm text-gray-300 animate-fadeIn delay-350">
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+              <Users size={16} className="mr-1" />
+              <span>{activeListeners} aktive Hörer</span>
+            </div>
+            <span>•</span>
+            <div className="flex items-center">
+              <Radio size={16} className="mr-1" />
+              <span>Zuletzt live: Gestern 23:30</span>
+            </div>
+          </div>
+          
+          {/* Enhanced Call-to-Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn delay-400">
             <a 
               href="#music"
-              className="px-8 py-4 bg-red-600 hover:bg-red-700 rounded-sm transition-all duration-300 font-semibold text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="group px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-sm transition-all duration-300 font-semibold text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 relative overflow-hidden"
             >
-              Neueste Sets
+              <span className="relative z-10 flex items-center justify-center">
+                <Play size={20} className="mr-2" />
+                Neueste Sets
+              </span>
+              <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
             </a>
+            
             <a 
               href="#contact"
-              className="px-8 py-4 border-2 border-white hover:border-red-500 hover:bg-red-500 hover:text-white rounded-sm transition-all duration-300 font-semibold text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="group px-8 py-4 border-2 border-white/60 hover:border-red-500 hover:bg-red-500 rounded-sm transition-all duration-300 font-semibold text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 backdrop-blur-sm relative overflow-hidden"
             >
-              Jetzt Buchen
+              <span className="relative z-10 flex items-center justify-center">
+                <Calendar size={20} className="mr-2" />
+                Jetzt Buchen
+              </span>
+              <div className="absolute inset-0 bg-red-500/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
             </a>
+          </div>
+          
+          {/* Stats Integration */}
+          <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto animate-fadeIn delay-500">
+            <div className="text-center group cursor-pointer">
+              <div className="text-3xl md:text-4xl font-bold text-red-500 group-hover:scale-110 transition-transform duration-300">50+</div>
+              <div className="text-xs uppercase tracking-wider text-gray-400">Shows</div>
+            </div>
+            <div className="text-center group cursor-pointer">
+              <div className="text-3xl md:text-4xl font-bold text-red-500 group-hover:scale-110 transition-transform duration-300">15+</div>
+              <div className="text-xs uppercase tracking-wider text-gray-400">Venues</div>
+            </div>
+            <div className="text-center group cursor-pointer">
+              <div className="text-3xl md:text-4xl font-bold text-red-500 group-hover:scale-110 transition-transform duration-300">1.2K+</div>
+              <div className="text-xs uppercase tracking-wider text-gray-400">Fans</div>
+            </div>
           </div>
         </div>
       </div>

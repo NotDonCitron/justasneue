@@ -21,7 +21,8 @@ const Testimonials: React.FC = () => {
       role: "Event Manager",
       venue: "MS Connexion Complex",
       content: "Justas bringt eine unglaubliche Energie auf die Bühne. Seine Sets sind technisch perfekt und die Crowd-Reaktion ist immer phänomenal. Ein absoluter Profi!",
-      rating: 5
+      rating: 5,
+      image: "/images/image00003(1).jpeg"
     },
     {
       id: 2,
@@ -29,7 +30,8 @@ const Testimonials: React.FC = () => {
       role: "Club Owner",
       venue: "Das Zimmer Mannheim",
       content: "Seit Jahren einer unserer zuverlässigsten DJs. Justas versteht es, die perfekte Atmosphäre zu schaffen und die Leute bis zum Schluss zu fesseln.",
-      rating: 5
+      rating: 5,
+      image: "/images/image00001(2).jpeg"
     },
     {
       id: 3,
@@ -37,7 +39,8 @@ const Testimonials: React.FC = () => {
       role: "Booking Agent",
       venue: "Basement Club",
       content: "Justas hat sich in der deutschen Techno-Szene einen Namen gemacht. Seine Entwicklung als Artist ist beeindruckend und seine Sets werden immer besser.",
-      rating: 5
+      rating: 5,
+      image: "/images/image00002(1).jpeg"
     },
     {
       id: 4,
@@ -45,7 +48,8 @@ const Testimonials: React.FC = () => {
       role: "Festival Coordinator",
       venue: "Underground Events",
       content: "Professionell, pünktlich und musikalisch auf höchstem Niveau. Justas ist genau der DJ, den man für wichtige Events braucht.",
-      rating: 5
+      rating: 5,
+      image: "/images/image00001(2).jpeg"
     }
   ];
 
@@ -100,6 +104,15 @@ const Testimonials: React.FC = () => {
 
               {/* Author Info */}
               <div className="text-center">
+                {currentTestimonial.image && (
+                  <div className="mb-4 flex justify-center">
+                    <img 
+                      src={currentTestimonial.image} 
+                      alt={currentTestimonial.name}
+                      className="w-16 h-16 rounded-full object-cover border-2 border-red-500"
+                    />
+                  </div>
+                )}
                 <div className="text-white font-semibold text-lg">
                   {currentTestimonial.name}
                 </div>

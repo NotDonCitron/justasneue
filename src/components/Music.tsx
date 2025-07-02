@@ -24,7 +24,7 @@ const Music: React.FC = () => {
       id: 1, 
       title: 'Justas Lange - Bass Drop Anthem', 
       duration: '3:24', 
-      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      thumbnail: '/images/image00003(1).jpeg',
       soundcloudUrl: 'https://soundcloud.com/justas-lange',
       embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     },
@@ -32,7 +32,7 @@ const Music: React.FC = () => {
       id: 2, 
       title: 'Justas Lange - Underground Vibes', 
       duration: '4:15', 
-      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      thumbnail: '/images/image00002(1).jpeg',
       soundcloudUrl: 'https://soundcloud.com/justas-lange',
       embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     },
@@ -40,7 +40,7 @@ const Music: React.FC = () => {
       id: 3, 
       title: 'Justas Lange - Festival Mix 2024', 
       duration: '5:45', 
-      thumbnail: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
+      thumbnail: '/images/image00001(2).jpeg',
       soundcloudUrl: 'https://soundcloud.com/justas-lange',
       embedCode: '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/justas-lange&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'
     }

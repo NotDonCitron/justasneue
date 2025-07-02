@@ -79,36 +79,100 @@ const Gallery: React.FC = () => {
   // Lokale Bilder
   const localImages: GalleryImage[] = [
     {
+      id: 'local-new-1',
+      src: '/images/image00003(1).jpeg',
+      alt: 'Dramatic red-lit performance with professional setup',
+      category: 'performance',
+      date: '2025-01-25',
+      location: 'Professional Studio Session',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-new-2',
+      src: '/images/image00001(2).jpeg',
+      alt: 'Professional portrait - DJ Justas Lange',
+      category: 'lifestyle',
+      date: '2025-01-22',
+      location: 'Studio Portrait Session',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-new-3',
+      src: '/images/image00002(1).jpeg',
+      alt: 'Behind the scenes collaboration and mixing',
+      category: 'studio',
+      date: '2025-01-21',
+      location: 'Collaborative Studio Work',
+      mediaType: 'image'
+    },
+    {
       id: 'local-1',
+      src: '/images/image00001.jpeg',
+      alt: 'Justas Lange in atmospheric DJ booth setting',
+      category: 'performance',
+      date: '2025-01-20',
+      location: 'Club Performance',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-2',
+      src: '/images/image00002.jpeg',
+      alt: 'Professional DJ setup and mixing',
+      category: 'studio',
+      date: '2025-01-18',
+      location: 'Studio Session',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-3',
+      src: '/images/image00003.jpeg',
+      alt: 'High-energy live performance',
+      category: 'performance',
+      date: '2025-01-15',
+      location: 'Main Stage',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-4',
+      src: '/images/image00004.jpeg',
+      alt: 'Behind the scenes preparation',
+      category: 'lifestyle',
+      date: '2025-01-12',
+      location: 'Backstage',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-5',
+      src: '/images/image00005.jpeg',
+      alt: 'Event atmosphere and crowd energy',
+      category: 'event',
+      date: '2025-01-10',
+      location: 'Event Space',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-6',
+      src: '/images/justas header.jpg',
+      alt: 'Promotional header shot',
+      category: 'lifestyle',
+      date: '2025-01-08',
+      mediaType: 'image'
+    },
+    {
+      id: 'local-7',
       src: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
-      alt: 'Justas Lange performing live',
+      alt: 'Classic performance shot',
       category: 'performance',
       date: '2023-07-30',
       location: 'Das Zimmer Mannheim',
       mediaType: 'image'
     },
     {
-      id: 'local-2',
+      id: 'local-8',
       src: '/Images/WhatsApp Image 2025-05-10 at 15.09.09 copy.jpeg',
-      alt: 'DJ setup and equipment',
+      alt: 'DJ equipment close-up',
       category: 'studio',
       date: '2025-05-10',
-      mediaType: 'image'
-    },
-    {
-      id: 'local-3',
-      src: '/Images/WhatsApp Image 2025-05-10 at 15.10.27 copy.jpeg',
-      alt: 'Live performance at club',
-      category: 'performance',
-      date: '2025-05-10',
-      mediaType: 'image'
-    },
-    {
-      id: 'local-4',
-      src: '/Images/header 2.jpeg',
-      alt: 'Event promotional material',
-      category: 'event',
-      date: '2024-12-01',
       mediaType: 'image'
     }
   ];

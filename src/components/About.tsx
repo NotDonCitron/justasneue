@@ -11,8 +11,8 @@ const About: React.FC = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-red-600/40 to-transparent z-10"></div>
             <LazyImage 
-              src="/Images/364268621_248985811283826_4097087762299984333_n.jpg"
-              alt="Justas Lange performing" 
+              src="/images/image00001(2).jpeg"
+              alt="Justas Lange - Professional DJ Portrait" 
               className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
               loading="lazy"
             />

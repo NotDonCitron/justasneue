@@ -74,12 +74,28 @@ const LazyImage: React.FC<LazyImageProps> = ({
   };
 
   const handleError = () => {
+    console.warn(`Failed to load image: ${src}`);
     setHasError(true);
     onError?.();
   };
 
   const getOptimalSrc = () => {
-    if (hasError) return placeholder || src;
+    if (hasError) {
+      // Enhanced fallback system for Instagram URLs
+      if (src.includes('instagram.com') || src.includes('cdninstagram.com')) {
+        // Use a local fallback image
+        return '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+      }
+      return placeholder || '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+    }
+    
+    // For Instagram URLs, add a proxy or use local images directly
+    if (src.includes('instagram.com') || src.includes('cdninstagram.com')) {
+      // Skip Instagram URLs and use fallback immediately to avoid CORS issues
+      console.warn('Instagram image detected, using fallback to avoid CORS issues:', src);
+      return '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
+    }
+    
     if (webpSrc && supportsWebP) return webpSrc;
     return src;
   };
@@ -102,7 +118,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       )}
       
       {/* Error state */}
-      {hasError && (
+      {hasError && !src.includes('instagram.com') && !src.includes('cdninstagram.com') && (
         <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
           <div className="text-gray-400 text-center">
             <div className="text-2xl mb-2">🖼️</div>
@@ -112,7 +128,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
       )}
       
       {/* Main image */}
-      {isInView && !hasError && (
+      {isInView && (
         <img
           ref={imgRef}
           src={getOptimalSrc()}

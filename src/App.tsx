@@ -1,8 +1,9 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Play, Pause, Instagram, Facebook, Twitter } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import ArtistSpotlight from './components/ArtistSpotlight';
 import Music from './components/Music';
 import Gallery from './components/Gallery';
 import VideoSection from './components/VideoSection';
@@ -18,7 +19,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 // Lazy load heavy components to avoid initial load issues
-const InstagramFeed = React.lazy(() => import('./components/InstagramFeed'));
+// Instagram feed removed as requested
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -30,7 +31,7 @@ function App() {
       setScrollY(window.scrollY);
       
       // Determine active section based on scroll position
-      const sections = ['home', 'about', 'music', 'videos', 'gallery', 'instagram', 'events', 'contact'];
+      const sections = ['home', 'about', 'spotlight', 'music', 'videos', 'gallery', 'events', 'contact'];
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -82,9 +83,49 @@ function App() {
           </ErrorBoundary>
           
           <ErrorBoundary>
-            <section id="about" className="py-20">
+            <section id="about" className="py-20 bg-neutral-900">
               <About />
             </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="spotlight" className="py-0">
+              <ArtistSpotlight />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="music" className="py-20 bg-black">
+              <Music />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="events" className="py-20 bg-neutral-900">
+              <Events />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="gallery" className="py-20 bg-black">
+              <Gallery />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="testimonials" className="py-20 bg-neutral-900">
+              <Testimonials />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="contact" className="py-20 bg-black">
+              <Contact />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <Newsletter />
           </ErrorBoundary>
           
           <ErrorBoundary>
@@ -94,52 +135,8 @@ function App() {
           </ErrorBoundary>
           
           <ErrorBoundary>
-            <section id="music" className="py-20 bg-neutral-900">
-              <Music />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
             <section id="videos">
               <VideoSection />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section id="gallery" className="py-20">
-              <Gallery />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section id="instagram" className="py-20 bg-black">
-              <Suspense fallback={<div className="flex justify-center py-20"><LoadingSpinner size="lg" color="red" /></div>}>
-                <InstagramFeed />
-              </Suspense>
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section className="py-20 bg-neutral-900">
-              <Testimonials />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section id="events" className="py-20">
-              <Events />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section className="py-20 bg-black">
-              <Newsletter />
-            </section>
-          </ErrorBoundary>
-          
-          <ErrorBoundary>
-            <section id="contact" className="py-20 bg-neutral-900">
-              <Contact />
             </section>
           </ErrorBoundary>
         </main>
