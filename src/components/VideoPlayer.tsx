@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, Download, Share, Link, Check } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, Download, Link, Check } from 'lucide-react';
 import { useCopyToClipboard } from '../hooks/useCopyToClipboard';
 
 interface VideoPlayerProps {

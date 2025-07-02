@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, MessageCircle, Calendar, MapPin, ExternalLink } from 'lucide-react';
 
 interface InstagramPost {
@@ -17,16 +17,22 @@ interface InstagramPost {
 const InstagramFeed: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<InstagramPost | null>(null);
   const [filter, setFilter] = useState<'all' | 'pinned' | 'recent'>('all');
+  const [instagramData, setInstagramData] = useState<any[]>([]);
 
-  // Load Instagram data safely with fallback
-  let instagramData: any[] = [];
-  try {
-    const data = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
-    instagramData = Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.warn('Instagram data not available, using fallback data:', error);
-    instagramData = [];
-  }
+  // Load Instagram data safely with dynamic import
+  useEffect(() => {
+    const loadInstagramData = async () => {
+      try {
+        const { default: data } = await import('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+        setInstagramData(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.warn('Instagram data not available, using fallback data:', error);
+        setInstagramData([]);
+      }
+    };
+    
+    loadInstagramData();
+  }, []);
 
   const posts: InstagramPost[] = instagramData.map(post => ({
     id: post.id,

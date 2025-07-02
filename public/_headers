@@ -16,3 +16,33 @@
 /Images/*
   Cross-Origin-Resource-Policy: cross-origin
   Cache-Control: public, max-age=31536000
+
+# Cache static assets for PWA
+/Images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/videos/*
+  Cache-Control: public, max-age=604800
+
+# Service Worker
+/sw.js
+  Cache-Control: no-cache
+
+# Manifest
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400
+
+# Fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Main assets
+*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Menu, X, Play, Pause, Instagram, Facebook, Twitter } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -7,23 +7,23 @@ import Music from './components/Music';
 import Gallery from './components/Gallery';
 import VideoSection from './components/VideoSection';
 import Events from './components/Events';
-import InstagramFeed from './components/InstagramFeed';
 import PerformanceMetrics from './components/PerformanceMetrics';
 import Testimonials from './components/Testimonials';
 import Newsletter from './components/Newsletter';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SocialShare from './components/SocialShare';
+import LoadingSpinner from './components/LoadingSpinner';
+import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
-// Lazy load the request system to avoid initial load issues
-const RequestSystemDemo = React.lazy(() => import('./components/RequestSystem/RequestSystemDemo'));
+// Lazy load heavy components to avoid initial load issues
+const InstagramFeed = React.lazy(() => import('./components/InstagramFeed'));
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [scrollY, setScrollY] = useState(0);
-  const [showRequestSystem, setShowRequestSystem] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,96 +52,103 @@ function App() {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Check URL for request system demo
-  useEffect(() => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('demo') === 'request-system') {
-        setShowRequestSystem(true);
-      }
-    } catch (error) {
-      console.error('Error parsing URL params:', error);
-    }
-  }, []);
-
-  if (showRequestSystem) {
-    return (
-      <React.Suspense fallback={
-        <div className="min-h-screen bg-black flex items-center justify-center">
-          <div className="text-white text-xl">Loading Request System...</div>
-        </div>
-      }>
-        <RequestSystemDemo />
-      </React.Suspense>
-    );
-  }
-
   return (
-    <div className="relative bg-black text-white min-h-screen">
-      <Navbar 
-        activeSection={activeSection}
-        mobileMenuOpen={mobileMenuOpen}
-        toggleMobileMenu={toggleMobileMenu}
-        scrollY={scrollY}
-      />
-      
-      {/* Floating Social Share */}
-      <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-40 hidden lg:block">
-        <SocialShare className="rotate-0" />
+    <ErrorBoundary>
+      <div className="relative bg-black text-white min-h-screen">
+        <Navbar 
+          activeSection={activeSection}
+          mobileMenuOpen={mobileMenuOpen}
+          toggleMobileMenu={toggleMobileMenu}
+          scrollY={scrollY}
+        />
+        
+        {/* Floating Social Share */}
+        <div className="fixed top-1/2 right-4 transform -translate-y-1/2 z-40 hidden lg:block">
+          <SocialShare className="rotate-0" />
+        </div>
+        
+        <main>
+          <ErrorBoundary fallback={
+            <div className="h-screen flex items-center justify-center bg-black text-white">
+              <div className="text-center">
+                <h2 className="text-2xl font-bold mb-4">Hero Section Error</h2>
+                <p className="text-gray-400">The hero section could not be loaded.</p>
+              </div>
+            </div>
+          }>
+            <section id="home" className="relative">
+              <Hero />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="about" className="py-20">
+              <About />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section className="py-20 bg-black">
+              <PerformanceMetrics />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="music" className="py-20 bg-neutral-900">
+              <Music />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="videos">
+              <VideoSection />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="gallery" className="py-20">
+              <Gallery />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="instagram" className="py-20 bg-black">
+              <Suspense fallback={<div className="flex justify-center py-20"><LoadingSpinner size="lg" color="red" /></div>}>
+                <InstagramFeed />
+              </Suspense>
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section className="py-20 bg-neutral-900">
+              <Testimonials />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="events" className="py-20">
+              <Events />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section className="py-20 bg-black">
+              <Newsletter />
+            </section>
+          </ErrorBoundary>
+          
+          <ErrorBoundary>
+            <section id="contact" className="py-20 bg-neutral-900">
+              <Contact />
+            </section>
+          </ErrorBoundary>
+        </main>
+        
+        <ErrorBoundary>
+          <Footer />
+        </ErrorBoundary>
       </div>
-      
-      {/* Request System Demo Button */}
-      <div className="fixed bottom-4 right-4 z-40">
-        <button
-          onClick={() => setShowRequestSystem(true)}
-          className="px-4 py-2 bg-gradient-to-r from-purple-600 to-red-600 hover:from-purple-700 hover:to-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
-        >
-          🎵 Request System Demo
-        </button>
-      </div>
-      
-      <main>
-        <section id="home" className="relative">
-          <Hero />
-        </section>
-        
-        <section id="about" className="py-20">
-          <About />
-        </section>
-        
-        <PerformanceMetrics />
-        
-        <section id="music" className="py-20 bg-neutral-900">
-          <Music />
-        </section>
-        
-        <section id="videos">
-          <VideoSection />
-        </section>
-        
-        <section id="gallery" className="py-20">
-          <Gallery />
-        </section>
-        
-        <section id="instagram" className="py-20 bg-neutral-900">
-          <InstagramFeed />
-        </section>
-        
-        <Testimonials />
-        
-        <section id="events" className="py-20">
-          <Events />
-        </section>
-        
-        <Newsletter />
-        
-        <section id="contact" className="py-20 bg-neutral-900">
-          <Contact />
-        </section>
-      </main>
-      
-      <Footer />
-    </div>
+    </ErrorBoundary>
   );
 }
 

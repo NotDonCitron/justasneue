@@ -5,6 +5,7 @@ import { musicApi } from '../../services/musicApi';
 import { wsService } from '../../services/websocket';
 import { ProfanityFilter } from '../../services/profanityFilter';
 import LoadingSpinner from '../LoadingSpinner';
+import LazyImage from '../LazyImage';
 
 interface GuestInterfaceProps {
   eventId: string;
@@ -227,7 +228,7 @@ const GuestInterface: React.FC<GuestInterfaceProps> = ({ eventId, userId }) => {
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-neutral-800 rounded-lg flex items-center justify-center">
               {currentlyPlaying.artwork ? (
-                <img src={currentlyPlaying.artwork} alt="" className="w-full h-full object-cover rounded-lg" />
+                <LazyImage src={currentlyPlaying.artwork} alt="" className="w-full h-full object-cover rounded-lg" loading="lazy" />
               ) : (
                 <Music size={24} className="text-red-500" />
               )}
@@ -279,7 +280,7 @@ const GuestInterface: React.FC<GuestInterfaceProps> = ({ eventId, userId }) => {
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-neutral-700 rounded-lg flex items-center justify-center">
                   {song.artwork ? (
-                    <img src={song.artwork} alt="" className="w-full h-full object-cover rounded-lg" />
+                    <LazyImage src={song.artwork} alt="" className="w-full h-full object-cover rounded-lg" loading="lazy" />
                   ) : (
                     <Music size={20} className="text-gray-400" />
                   )}

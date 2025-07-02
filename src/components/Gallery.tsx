@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Heart, Play, Share, Link } from 'lucide-react';
 import LazyImage from './LazyImage';
 import VideoPlayer from './VideoPlayer';
@@ -23,16 +23,22 @@ interface GalleryImage {
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('all');
+  const [instagramData, setInstagramData] = useState<any[]>([]);
 
-  // Load Instagram data safely with fallback
-  let instagramData: any[] = [];
-  try {
-    const data = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
-    instagramData = Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.warn('Instagram data not available, using fallback data:', error);
-    instagramData = [];
-  }
+  // Load Instagram data safely with dynamic import
+  useEffect(() => {
+    const loadInstagramData = async () => {
+      try {
+        const { default: data } = await import('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+        setInstagramData(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.warn('Instagram data not available, using fallback data:', error);
+        setInstagramData([]);
+      }
+    };
+    
+    loadInstagramData();
+  }, []);
 
   // Local videos - ADD YOUR MP4 FILES HERE
   const localVideos: GalleryImage[] = [

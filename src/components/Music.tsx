@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Play, Pause } from 'lucide-react';
-import MixCloudPlayer from './MixCloudPlayer';
-import LiveStream from './LiveStream';
+import LazyImage from './LazyImage';
+import LoadingSpinner from './LoadingSpinner';
+
+// Dynamic import for heavy component
+const MixCloudPlayer = React.lazy(() => import('./MixCloudPlayer'));
 
 interface Track {
   id: number;
@@ -52,14 +55,15 @@ const Music: React.FC = () => {
         </p>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-        {/* Featured Track */}
-        <div className="lg:col-span-1">
+      {/* Featured Track Section */}
+      <div className="mb-12">
+        <div className="max-w-lg mx-auto">
           <div className="relative rounded-lg overflow-hidden group">
-            <img 
+            <LazyImage 
               src={tracks[0].thumbnail}
               alt="Latest Release" 
               className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70"></div>
             <div className="absolute bottom-0 left-0 p-6">
@@ -77,30 +81,27 @@ const Music: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 text-center">
             <h3 className="text-xl font-semibold mb-4">Stream On</h3>
-            <div className="flex space-x-4">
+            <div className="flex justify-center">
               <a 
                 href="https://soundcloud.com/justas-lange"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-neutral-800 rounded hover:bg-neutral-700 transition-colors duration-300 cursor-pointer"
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/SoundCloud_icon.svg" alt="SoundCloud" className="h-8 w-8" />
+                <LazyImage src="https://upload.wikimedia.org/wikipedia/commons/9/96/SoundCloud_icon.svg" alt="SoundCloud" className="h-8 w-8" loading="lazy" />
               </a>
             </div>
           </div>
-        </div>
-        
-        {/* Live Stream Section */}
-        <div className="lg:col-span-2">
-          <LiveStream />
         </div>
       </div>
 
       {/* Mixcloud Player */}
       <div className="mb-12">
-        <MixCloudPlayer />
+        <Suspense fallback={<LoadingSpinner size="lg" color="red" />}>
+          <MixCloudPlayer />
+        </Suspense>
       </div>
       
       {/* Featured Tracks */}
@@ -116,10 +117,11 @@ const Music: React.FC = () => {
                 }`}
               >
                 <div className="flex-shrink-0 w-12 h-12 relative mr-4">
-                  <img 
+                  <LazyImage 
                     src={track.thumbnail} 
                     alt={track.title} 
                     className="w-full h-full object-cover rounded"
+                    loading="lazy"
                   />
                 </div>
                 

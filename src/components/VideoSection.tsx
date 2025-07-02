@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, Download } from 'lucide-react';
+import { Play, Download } from 'lucide-react';
 import VideoPlayer from './VideoPlayer';
+import LazyImage from './LazyImage';
 
 interface Video {
   id: string;
@@ -140,10 +141,11 @@ const VideoSection: React.FC = () => {
               className="group cursor-pointer bg-neutral-800 rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-900/20"
             >
               <div className="relative aspect-video overflow-hidden">
-                <img
+                <LazyImage
                   src={video.poster}
                   alt={video.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
                 
                 {/* Play Overlay */}
@@ -183,26 +185,6 @@ const VideoSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-red-900/20 to-purple-900/20 rounded-lg p-8 border border-red-500/20">
-            <h3 className="text-2xl font-bold text-white mb-4">Mehr Videos auf YouTube</h3>
-            <p className="text-gray-400 mb-6">
-              Abonniere meinen YouTube-Kanal für die neuesten Sets, Tutorials und exklusive Inhalte
-            </p>
-            <a
-              href="https://youtube.com/@justaslange"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-300"
-            >
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              YouTube abonnieren
-            </a>
-          </div>
-        </div>
       </div>
     </div>
   );

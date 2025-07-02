@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Clock, MapPin, Calendar, ExternalLink, Heart, MessageCircle } from 'lucide-react';
+import LazyImage from './LazyImage';
 
 interface Event {
   id: string;
@@ -16,16 +17,22 @@ interface Event {
 }
 
 const Events: React.FC = () => {
-  // Load Instagram data safely with fallback
-  let instagramData: any[] = [];
-  try {
-    // Try to load the data, but don't crash if it fails
-    const data = require('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
-    instagramData = Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.warn('Instagram data not available, using fallback data:', error);
-    instagramData = [];
-  }
+  const [instagramData, setInstagramData] = useState<any[]>([]);
+
+  // Load Instagram data safely with dynamic import
+  useEffect(() => {
+    const loadInstagramData = async () => {
+      try {
+        const { default: data } = await import('../data/dataset_instagram-profile-posts-scraper_2025-06-29_21-56-39-977.json');
+        setInstagramData(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.warn('Instagram data not available, using fallback data:', error);
+        setInstagramData([]);
+      }
+    };
+    
+    loadInstagramData();
+  }, []);
 
   // Events aus Instagram-Daten extrahieren
   const instagramEvents: Event[] = instagramData
@@ -116,10 +123,11 @@ const Events: React.FC = () => {
               className="group relative bg-neutral-900 rounded-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-900/20"
             >
               <div className="relative h-48 overflow-hidden">
-                <img 
+                <LazyImage 
                   src={event.image} 
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/Images/364268621_248985811283826_4097087762299984333_n.jpg';
@@ -193,10 +201,11 @@ const Events: React.FC = () => {
               className="group relative bg-neutral-900/50 rounded-lg overflow-hidden opacity-75 hover:opacity-100 transition-all duration-300"
             >
               <div className="relative h-32 overflow-hidden">
-                <img 
+                <LazyImage 
                   src={event.image} 
                   alt={event.title} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/Images/364268621_248985811283826_4097087762299984333_n.jpg';

@@ -8,24 +8,22 @@ interface SocialShareProps {
   className?: string;
 }
 
-const SocialShare: React.FC<SocialShareProps> = ({
-  url = window.location.href,
-  title = 'Justas Lange - Elektronische Musik DJ',
-  description = 'Bass & House Spezialist aus Litauen',
-  className = ''
-}) => {
+const SocialShare: React.FC<SocialShareProps> = ({ className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const currentUrl = window.location.href;
+  const title = 'Justas Lange - DJ & Electronic Music';
+
   const shareLinks = {
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
+    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
     instagram: 'https://instagram.com/justaslange'
   };
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(currentUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
