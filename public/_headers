@@ -1,0 +1,18 @@
+# Netlify Headers für Production
+/*
+  Cross-Origin-Embedder-Policy: unsafe-none
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: cross-origin
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Spezielle Headers für Videos
+/videos/*
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=31536000
+
+# Headers für Bilder
+/Images/*
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=31536000

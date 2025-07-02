@@ -39,7 +39,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setIsLoading(false);
     };
     const handleEnded = () => setIsPlaying(false);
-    const handleError = () => {
+    const handleError = (e: Event) => {
+      console.error('Video loading error:', e);
       setHasError(true);
       setIsLoading(false);
     };
@@ -77,7 +78,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     if (isPlaying) {
       video.pause();
     } else {
-      video.play().catch(console.error);
+      video.play().catch((error) => {
+        console.error('Video play error:', error);
+        setHasError(true);
+      });
     }
     setIsPlaying(!isPlaying);
   };
@@ -121,9 +125,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     if (!video) return;
 
     if (!document.fullscreenElement) {
-      video.requestFullscreen().catch(console.error);
+      video.requestFullscreen().catch((error) => {
+        console.error('Fullscreen error:', error);
+      });
     } else {
-      document.exitFullscreen().catch(console.error);
+      document.exitFullscreen().catch((error) => {
+        console.error('Exit fullscreen error:', error);
+      });
     }
   };
 
@@ -136,10 +144,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   const downloadVideo = () => {
-    const link = document.createElement('a');
-    link.href = src;
-    link.download = title || 'video.mp4';
-    link.click();
+    try {
+      const link = document.createElement('a');
+      link.href = src;
+      link.download = title || 'video.mp4';
+      link.crossOrigin = 'anonymous';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Download error:', error);
+      // Fallback: Open in new tab
+      window.open(src, '_blank');
+    }
   };
 
   const formatTime = (time: number) => {
@@ -157,6 +174,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           <div className="text-4xl mb-4">⚠️</div>
           <p>Video konnte nicht geladen werden</p>
           <p className="text-sm mt-2">Überprüfe den Dateipfad: {src}</p>
+          <button 
+            onClick={() => {
+              setHasError(false);
+              setIsLoading(true);
+              const video = videoRef.current;
+              if (video) {
+                video.load();
+              }
+            }}
+            className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm transition-colors duration-300"
+          >
+            Erneut versuchen
+          </button>
         </div>
       </div>
     );
@@ -178,6 +208,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         playsInline
         autoPlay={autoPlay}
         preload="metadata"
+        crossOrigin="anonymous"
       />
       
       {/* Loading Spinner */}
