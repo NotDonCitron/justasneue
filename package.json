@@ -5,9 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev-alt": "vite --port 8080 --host 0.0.0.0",
+    "dev-mobile": "vite --port 3001 --host 0.0.0.0",
+    "dev-secure": "vite --https --port 3443",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview-network": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
