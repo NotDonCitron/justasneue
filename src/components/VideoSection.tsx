@@ -18,49 +18,39 @@ const VideoSection: React.FC = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [filter, setFilter] = useState<string>('all');
 
-  // Deine Videos - Füge hier deine MP4 Dateien hinzu
+  // Video array with only existing files
   const videos: Video[] = [
     {
       id: 'performance-1',
-      title: 'Live Set @ MS Connexion Complex',
-      description: 'Intensive Techno Session mit krassen Drops und Underground Vibes',
-      src: '/videos/ms-connexion-set.mp4', // Ersetze mit deinem Video-Pfad
-      poster: '/Images/364268621_248985811283826_4097087762299984333_n.jpg',
-      duration: '15:30',
+      title: 'Justas Live @ XYZ Festival',
+      description: 'High-energy peak-time techno set.',
+      src: '/videos/justas1.mp4',
+      poster: '/Images/justas1.jpg',
+      duration: '14:07',
       category: 'performance',
-      date: '2024-12-15',
-      venue: 'MS Connexion Complex'
+      date: '2024-10-05',
+      venue: 'XYZ Festival'
     },
     {
       id: 'studio-1',
-      title: 'Studio Session - New Track Preview',
-      description: 'Behind the Scenes beim Produzieren neuer Tracks',
-      src: '/videos/studio-session.mp4',
-      poster: '/Images/WhatsApp Image 2025-05-10 at 15.09.09 copy.jpeg',
-      duration: '8:45',
+      title: 'Underground Beats Creation',
+      description: 'Deep dive into creating underground techno tracks in the studio',
+      src: '/videos/justas2.mp4',
+      poster: '/Images/justas2.jpg',
+      duration: '11:23',
       category: 'studio',
-      date: '2024-12-10'
+      date: '2024-09-18'
     },
     {
       id: 'event-1',
-      title: 'Das Zimmer Mannheim Highlights',
-      description: 'Die besten Momente aus dem legendären Auftritt',
-      src: '/videos/das-zimmer-highlights.mp4',
-      poster: '/Images/WhatsApp Image 2025-05-10 at 15.10.27 copy.jpeg',
-      duration: '12:20',
+      title: 'Warehouse Party Berlin',
+      description: 'Raw industrial sounds in authentic Berlin warehouse setting',
+      src: '/videos/justas3.mp4',
+      poster: '/Images/justas3.jpg',
+      duration: '18:45',
       category: 'event',
-      date: '2024-11-28',
-      venue: 'Das Zimmer Mannheim'
-    },
-    {
-      id: 'behind-1',
-      title: 'Backstage & Setup',
-      description: 'Einblicke hinter die Kulissen vor einem großen Auftritt',
-      src: '/videos/backstage.mp4',
-      poster: '/Images/header 2.jpeg',
-      duration: '6:15',
-      category: 'behind-scenes',
-      date: '2024-11-20'
+      date: '2024-08-22',
+      venue: 'Warehouse Berlin'
     }
   ];
 
